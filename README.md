@@ -49,3 +49,12 @@ Below is a summary of the results achieved on each dataset.
 | ruanchaves/mdeberta-v3-base-assin-entailment           | 0.927   | 0.862 |
 | ruanchaves/bert-large-portuguese-cased-assin-entailment | 0.92    | 0.828 |
 | ruanchaves/bert-base-portuguese-cased-assin-entailment | 0.92   | 0.827 |
+
+### HateBR ( Offensive Language Detection )
+
+
+| Model                                                    | Accuracy | F1  |
+|----------------------------------------------------------|---------|------|
+| ruanchaves/bert-large-portuguese-cased-hatebr | 0.928    | 0.928 |
+| ruanchaves/mdeberta-v3-base-hatebr          | 0.916 | 0.916 |
+| ruanchaves/bert-base-portuguese-cased-hatebr | 0.914 | 0.914 |
