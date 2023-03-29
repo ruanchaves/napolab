@@ -58,3 +58,11 @@ Below is a summary of the results achieved on each dataset.
 | ruanchaves/bert-large-portuguese-cased-hatebr | 0.928    | 0.928 |
 | ruanchaves/mdeberta-v3-base-hatebr          | 0.916 | 0.916 |
 | ruanchaves/bert-base-portuguese-cased-hatebr | 0.914 | 0.914 |
+
+### FaQUaD-NLI ( Question Answering )
+
+| Model                                                    | Accuracy | F1  |
+|----------------------------------------------------------|---------|------|
+| ruanchaves/bert-large-portuguese-cased-hatebr | 0.929  | 0.93 |
+| ruanchaves/mdeberta-v3-base-hatebr          | 0.926 | 0.926 |
+| ruanchaves/bert-base-portuguese-cased-hatebr | 0.92 | 0.883 |
