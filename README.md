@@ -22,7 +22,7 @@ Interact with our models in your browser by exploring our demos:
 
 * Step 2. The best hyperparameters from step 1 are used to fine-tune each model 40 times with different random seeds for up to one epoch ( [Dodge et al. (2020)](https://arxiv.org/abs/2002.06305) ). The 10 best models after the first epoch are selected for the next step.
 
-* Step 3. The top 10 models from step 2 are fine-tuned for 20 epochs, generating predictions for the test set. We select the model that is closest to the average of predictions (for regression tasks) or the mode of predictions (for classification tasks). This final model is then submitted for evaluation and uploaded to the Hugging Face Hub.
+* Step 3. The top 10 models from step 2 are fine-tuned for 20 epochs, generating predictions for the test set ( [Mosbach et al. (2021)](https://arxiv.org/abs/2006.04884) ). We select the model that is closest to the average of predictions (for regression tasks) or the mode of predictions (for classification tasks). This final model is then submitted for evaluation and uploaded to the Hugging Face Hub.
 
 ## Results  
 
