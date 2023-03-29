@@ -88,3 +88,8 @@ Below is a summary of the results achieved on each dataset.
 | ruanchaves/mdeberta-v3-base-porsimplessent          | 0.96 | 0.956 |
 | ruanchaves/bert-base-portuguese-cased-porsimplessent | 0.942 | 0.937 |
 | ruanchaves/bert-large-portuguese-cased-porsimplessent | 0.921  | 0.913 |
+
+
+## Citation
+
+Our research is ongoing, and we are currently working on describing our experiments in a paper, which will be published soon. In the meanwhile, if you would like to cite our work or models before the publication of the paper, please use the following BibTeX citation for this repository: 
