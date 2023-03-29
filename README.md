@@ -63,6 +63,14 @@ Below is a summary of the results achieved on each dataset.
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/bert-large-portuguese-cased-hatebr | 0.929  | 0.93 |
-| ruanchaves/mdeberta-v3-base-hatebr          | 0.926 | 0.926 |
-| ruanchaves/bert-base-portuguese-cased-hatebr | 0.92 | 0.883 |
+| ruanchaves/bert-large-portuguese-cased-faquad-nli | 0.929  | 0.93 |
+| ruanchaves/mdeberta-v3-base-faquad-nli          | 0.926 | 0.926 |
+| ruanchaves/bert-base-portuguese-cased-faquad-nli | 0.92 | 0.883 |
+
+### PorSimplesSent ( Text Simplification )
+
+| Model                                                    | Accuracy | F1  |
+|----------------------------------------------------------|---------|------|
+| ruanchaves/mdeberta-v3-base-porsimplessent          | 0.96 | 0.956 |
+| ruanchaves/bert-base-portuguese-cased-porsimplessent | 0.942 | 0.937 |
+| ruanchaves/bert-large-portuguese-cased-porsimplessent | 0.921  | 0.913 |
