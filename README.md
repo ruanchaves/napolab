@@ -2,6 +2,20 @@
 
 This repository presents ongoing research on fine-tuning Transformer models for Portuguese natural language understanding tasks.
 
+## Demos
+
+All of our fine-tuned models have been integrated into an appropriate [Hugging Face Space](https://huggingface.co/ruanchaves).
+
+Interact with our models in your browser by exploring our demos:
+
+* [Portuguese Offensive Language Detection](https://ruanchaves-portuguese-question-answering.hf.space)
+* [Portuguese Question Answering](https://ruanchaves-portuguese-question-answering.hf.space)
+* [Portuguese Semantic Similarity](https://ruanchaves-portuguese-semantic-similarity.hf.space)
+* [Portuguese Textual Entailment](https://ruanchaves-portuguese-textual-entailment.hf.space)
+* [Portuguese Text Simplification](https://ruanchaves-portuguese-text-simplification.hf.space)
+
+
+
 ## Summary of the Fine-Tuning procedure
 
 * Step 1. Hyperparameter optimization is performed using quasi-random search based on Google's Deep Learning Playbook instructions. The best learning rate, weight decay, and adam beta1 parameters for each Transformer model on each task are identified.
