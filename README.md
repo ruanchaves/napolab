@@ -21,7 +21,7 @@ Below is a summary of the results achieved on each dataset.
 |----------------------------------------------------------|---------|------|
 | **ruanchaves/bert-large-portuguese-cased-assin2-similarity** | **0.86**    | **0.48** |
 | Previous SOTA ( for Pearson )                            | 0.852   | 0.50 |
-| Previous SOTA ( for MSE )                                | 0.817   | **0.47** |
+| SOTA ( for MSE )                                | 0.817   | **0.47** |
 | ruanchaves/mdeberta-v3-base-assin2-similarity            | 0.847   | 0.62 |
 | ruanchaves/bert-base-portuguese-cased-assin2-similarity  | 0.843   | 0.54 |
 
