@@ -8,7 +8,7 @@ All of our fine-tuned models have been integrated into an appropriate [Hugging F
 
 Interact with our models in your browser by exploring our demos:
 
-* [Portuguese Offensive Language Detection](https://ruanchaves-portuguese-question-answering.hf.space)
+* [Portuguese Offensive Language Detection](https://ruanchaves-portuguese-offensive-language-de-d4d0507.hf.space)
 * [Portuguese Question Answering](https://ruanchaves-portuguese-question-answering.hf.space)
 * [Portuguese Semantic Similarity](https://ruanchaves-portuguese-semantic-similarity.hf.space)
 * [Portuguese Textual Entailment](https://ruanchaves-portuguese-textual-entailment.hf.space)
