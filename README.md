@@ -33,3 +33,19 @@ Below is a summary of the results achieved on each dataset.
 | ruanchaves/mdeberta-v3-base-assin2-entailment           | **0.90**   | **0.90** |
 | Previous SOTA                           | **0.90**  | **0.90** |
 | ruanchaves/bert-base-portuguese-cased-assin2-entailment | 0.88   | 0.88 |
+
+### ASSIN - STS ( Semantic Textual Similarity )
+
+| Model                                                    | Pearson | MSE  |
+|----------------------------------------------------------|---------|------|
+| ruanchaves/bert-large-portuguese-cased-assin-similarity | 0.859    | 0.3 |
+| ruanchaves/mdeberta-v3-base-assin-similarity            | 0.855  | 0.39 |
+| ruanchaves/bert-base-portuguese-cased-assin-similarity  | 0.847   | 0.33 |
+
+### ASSIN - RTE ( Recognizing Textual Entailment )
+
+| Model                                                    | Accuracy | F1  |
+|----------------------------------------------------------|---------|------|
+| ruanchaves/mdeberta-v3-base-assin2-entailment           | 0.927   | 0.862 |
+| ruanchaves/bert-large-portuguese-cased-assin-entailment | 0.92    | 0.828 |
+| ruanchaves/bert-base-portuguese-cased-assin2-entailment | 0.92   | 0.827 |
