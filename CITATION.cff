@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Chaves Rodrigues"
+  given-names: "Ruan"
+  orcid: "https://orcid.org/0000-0001-7106-1490"
+- family-names: "Tanti"
+  given-names: "Marc"
+- family-names: "Agerri"
+  given-names: "Rodrigo"
+  orcid: "https://orcid.org/0000-0002-7303-7598"
+title: "eplm"
+version: 1.0.0
+doi: 
+date-released: 2023-03-29
+url: "https://github.com/ruanchaves/eplm"
