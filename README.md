@@ -34,8 +34,8 @@ Below is a summary of the results achieved on each dataset.
 | Model                                                    | Pearson | MSE  |
 |----------------------------------------------------------|---------|------|
 | **ruanchaves/bert-large-portuguese-cased-assin2-similarity** | **0.86**    | **0.48** |
-| Previous SOTA ( for Pearson )                            | 0.852   | 0.50 |
-| SOTA ( for MSE )                                | 0.817   | **0.47** |
+| Previous SOTA ( for Pearson ) - [Souza et al. (2020)](https://link.springer.com/chapter/10.1007/978-3-030-61377-8_28/tables/2)                           | 0.852   | 0.50 |
+| SOTA ( for MSE ) - [Stilingue](https://link.springer.com/chapter/10.1007/978-3-030-41505-1_39/tables/2)                               | 0.817   | **0.47** |
 | ruanchaves/mdeberta-v3-base-assin2-similarity            | 0.847   | 0.62 |
 | ruanchaves/bert-base-portuguese-cased-assin2-similarity  | 0.843   | 0.54 |
 
