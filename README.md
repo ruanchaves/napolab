@@ -46,6 +46,6 @@ Below is a summary of the results achieved on each dataset.
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/mdeberta-v3-base-assin2-entailment           | 0.927   | 0.862 |
+| ruanchaves/mdeberta-v3-base-assin-entailment           | 0.927   | 0.862 |
 | ruanchaves/bert-large-portuguese-cased-assin-entailment | 0.92    | 0.828 |
-| ruanchaves/bert-base-portuguese-cased-assin2-entailment | 0.92   | 0.827 |
+| ruanchaves/bert-base-portuguese-cased-assin-entailment | 0.92   | 0.827 |
