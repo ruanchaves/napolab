@@ -15,12 +15,21 @@ This repository presents ongoing research on fine-tuning Transformer models for 
 Our fine-tuning procedure has achieved results that are either slightly superior or at the same level as the previous state-of-the-art (if any).
 Below is a summary of the results achieved on each dataset.
 
-### ASSIN 2
+### ASSIN 2 - STS ( Semantic Textual Similarity )
 
-| Model                                                    | Pearson | MSE  |   |   |
-|----------------------------------------------------------|---------|------|---|---|
-| ruanchaves/bert-large-portuguese-cased-assin2-similarity | 0.86    | 0.48 |   |   |
-| Previous SOTA ( for Pearson )                            | 0.852   | 0.50 |   |   |
-| Previous SOTA ( for MSE )                                | 0.817   | 0.47 |   |   |
-| ruanchaves/mdeberta-v3-base-assin2-similarity            | 0.847   | 0.62 |   |   |
-| ruanchaves/bert-base-portuguese-cased-assin2-similarity  | 0.843   | 0.54 |   |   |
+| Model                                                    | Pearson | MSE  |
+|----------------------------------------------------------|---------|------|
+| **ruanchaves/bert-large-portuguese-cased-assin2-similarity** | **0.86**    | **0.48** |
+| Previous SOTA ( for Pearson )                            | 0.852   | 0.50 |
+| Previous SOTA ( for MSE )                                | 0.817   | **0.47** |
+| ruanchaves/mdeberta-v3-base-assin2-similarity            | 0.847   | 0.62 |
+| ruanchaves/bert-base-portuguese-cased-assin2-similarity  | 0.843   | 0.54 |
+
+### ASSIN 2 - RTE ( Recognizing Textual Entailment )
+
+| Model                                                    | Accuracy | F1  |
+|----------------------------------------------------------|---------|------|
+| **ruanchaves/bert-large-portuguese-cased-assin2-entailment** | **0.90**    | **0.90** |
+| ruanchaves/mdeberta-v3-base-assin2-entailment           | **0.90**   | **0.90** |
+| Previous SOTA                           | **0.90**  | **0.90** |
+| ruanchaves/bert-base-portuguese-cased-assin2-entailment | 0.88   | 0.88 |
