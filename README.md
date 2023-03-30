@@ -99,7 +99,7 @@ Our research is ongoing, and we are currently working on describing our experime
 author = {Chaves Rodrigues, Ruan and Tanti, Marc and Agerri, Rodrigo},
 doi = {10.5281/zenodo.7781848},
 month = {3},
-title = {{eplm}},
+title = {{Evaluation of Portuguese Language Models}},
 url = {https://github.com/ruanchaves/eplm},
 version = {1.0.0},
 year = {2023}
