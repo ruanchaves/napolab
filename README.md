@@ -36,58 +36,58 @@ Below is a summary of the results achieved on each dataset.
 | **ruanchaves/bert-large-portuguese-cased-assin2-similarity** | **0.86**    | **0.48** |
 | Previous SOTA ( for Pearson ) - [Souza et al. (2020)](https://link.springer.com/chapter/10.1007/978-3-030-61377-8_28/tables/2)                           | 0.852   | 0.50 |
 | SOTA ( for MSE ) - [Stilingue](https://link.springer.com/chapter/10.1007/978-3-030-41505-1_39/tables/2)                               | 0.817   | **0.47** |
-| ruanchaves/mdeberta-v3-base-assin2-similarity            | 0.847   | 0.62 |
-| ruanchaves/bert-base-portuguese-cased-assin2-similarity  | 0.843   | 0.54 |
+| [ruanchaves/mdeberta-v3-base-assin2-similarity](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin2-similarity)            | 0.847   | 0.62 |
+| [ruanchaves/bert-base-portuguese-cased-assin2-similarity](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin2-similarity)    | 0.843   | 0.54 |
 
 ### ASSIN 2 - RTE ( Recognizing Textual Entailment )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| **ruanchaves/bert-large-portuguese-cased-assin2-entailment** | **0.90**    | **0.90** |
-| ruanchaves/mdeberta-v3-base-assin2-entailment           | **0.90**   | **0.90** |
+| **[ruanchaves/bert-large-portuguese-cased-assin2-entailment](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-assin2-entailment)** | **0.90**    | **0.90** |
+| [ruanchaves/mdeberta-v3-base-assin2-entailment](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin2-entailment)           | **0.90**   | **0.90** |
 | Previous SOTA                           | **0.90**  | **0.90** |
-| ruanchaves/bert-base-portuguese-cased-assin2-entailment | 0.88   | 0.88 |
+| [ruanchaves/bert-base-portuguese-cased-assin2-entailment](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin2-entailment) | 0.88   | 0.88 |
 
 ### ASSIN - STS ( Semantic Textual Similarity )
 
 | Model                                                    | Pearson | MSE  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/bert-large-portuguese-cased-assin-similarity | 0.859    | 0.3 |
-| ruanchaves/mdeberta-v3-base-assin-similarity            | 0.855  | 0.39 |
-| ruanchaves/bert-base-portuguese-cased-assin-similarity  | 0.847   | 0.33 |
+| [ruanchaves/bert-large-portuguese-cased-assin-similarity](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-assin-similarity) | 0.859    | 0.3 |
+| [ruanchaves/mdeberta-v3-base-assin-similarity](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin-similarity)            | 0.855  | 0.39 |
+| [ruanchaves/bert-base-portuguese-cased-assin-similarity](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin-similarity)  | 0.847   | 0.33 |
 
 ### ASSIN - RTE ( Recognizing Textual Entailment )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/mdeberta-v3-base-assin-entailment           | 0.927   | 0.862 |
-| ruanchaves/bert-large-portuguese-cased-assin-entailment | 0.92    | 0.828 |
-| ruanchaves/bert-base-portuguese-cased-assin-entailment | 0.92   | 0.827 |
+| [ruanchaves/mdeberta-v3-base-assin-entailment](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin-entailment)           | 0.927   | 0.862 |
+| [ruanchaves/bert-large-portuguese-cased-assin-entailment](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-assin-entailment) | 0.92    | 0.828 |
+| [ruanchaves/bert-base-portuguese-cased-assin-entailment](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin-entailment) | 0.92   | 0.827 |
 
 ### HateBR ( Offensive Language Detection )
 
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/bert-large-portuguese-cased-hatebr | 0.928    | 0.928 |
-| ruanchaves/mdeberta-v3-base-hatebr          | 0.916 | 0.916 |
-| ruanchaves/bert-base-portuguese-cased-hatebr | 0.914 | 0.914 |
+| [ruanchaves/bert-large-portuguese-cased-hatebr](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-hatebr) | 0.928    | 0.928 |
+| [ruanchaves/mdeberta-v3-base-hatebr](https://huggingface.co/ruanchaves/mdeberta-v3-base-hatebr)          | 0.916 | 0.916 |
+| [ruanchaves/bert-base-portuguese-cased-hatebr](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-hatebr) | 0.914 | 0.914 |
 
 ### FaQUaD-NLI ( Question Answering )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/bert-large-portuguese-cased-faquad-nli | 0.929  | 0.93 |
-| ruanchaves/mdeberta-v3-base-faquad-nli          | 0.926 | 0.926 |
-| ruanchaves/bert-base-portuguese-cased-faquad-nli | 0.92 | 0.883 |
+| [ruanchaves/bert-large-portuguese-cased-faquad-nli](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-faquad-nli) | 0.929  | 0.93 |
+| [ruanchaves/mdeberta-v3-base-faquad-nli](https://huggingface.co/ruanchaves/mdeberta-v3-base-faquad-nli)          | 0.926 | 0.926 |
+| [ruanchaves/bert-base-portuguese-cased-faquad-nli](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-faquad-nli) | 0.92 | 0.883 |
 
 ### PorSimplesSent ( Text Simplification )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
-| ruanchaves/mdeberta-v3-base-porsimplessent          | 0.96 | 0.956 |
-| ruanchaves/bert-base-portuguese-cased-porsimplessent | 0.942 | 0.937 |
-| ruanchaves/bert-large-portuguese-cased-porsimplessent | 0.921  | 0.913 |
+| [ruanchaves/mdeberta-v3-base-porsimplessent](https://huggingface.co/ruanchaves/mdeberta-v3-base-porsimplessent)          | 0.96 | 0.956 |
+| [ruanchaves/bert-base-portuguese-cased-porsimplessent](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-porsimplessent) | 0.942 | 0.937 |
+| [ruanchaves/bert-large-portuguese-cased-porsimplessent](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-porsimplessent)  | 0.921  | 0.913 |
 
 
 ## Citation
