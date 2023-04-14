@@ -29,7 +29,7 @@ Interact with our models in your browser by exploring our demos:
 Our fine-tuning procedure has achieved results that are either slightly superior or at the same level as the previous state-of-the-art (if any).
 Below is a summary of the results achieved on each dataset.
 
-### ASSIN 2 - STS ( Semantic Textual Similarity )
+### [ASSIN 2](huggingface.co/datasets/assin2) - STS ( Semantic Textual Similarity )
 
 | Model                                                    | Pearson | MSE  |
 |----------------------------------------------------------|---------|------|
@@ -39,7 +39,7 @@ Below is a summary of the results achieved on each dataset.
 | [ruanchaves/mdeberta-v3-base-assin2-similarity](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin2-similarity)            | 0.847   | 0.62 |
 | [ruanchaves/bert-base-portuguese-cased-assin2-similarity](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin2-similarity)    | 0.843   | 0.54 |
 
-### ASSIN 2 - RTE ( Recognizing Textual Entailment )
+### [ASSIN 2](huggingface.co/datasets/assin2) - RTE ( Recognizing Textual Entailment )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
@@ -48,7 +48,7 @@ Below is a summary of the results achieved on each dataset.
 | Previous SOTA                           | **0.90**  | **0.90** |
 | [ruanchaves/bert-base-portuguese-cased-assin2-entailment](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin2-entailment) | 0.88   | 0.88 |
 
-### ASSIN - STS ( Semantic Textual Similarity )
+### [ASSIN](https://huggingface.co/datasets/assin) - STS ( Semantic Textual Similarity )
 
 | Model                                                    | Pearson | MSE  |
 |----------------------------------------------------------|---------|------|
@@ -56,7 +56,7 @@ Below is a summary of the results achieved on each dataset.
 | [ruanchaves/mdeberta-v3-base-assin-similarity](https://huggingface.co/ruanchaves/mdeberta-v3-base-assin-similarity)            | 0.855  | 0.39 |
 | [ruanchaves/bert-base-portuguese-cased-assin-similarity](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin-similarity)  | 0.847   | 0.33 |
 
-### ASSIN - RTE ( Recognizing Textual Entailment )
+### [ASSIN](https://huggingface.co/datasets/assin) - RTE ( Recognizing Textual Entailment )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
@@ -64,7 +64,7 @@ Below is a summary of the results achieved on each dataset.
 | [ruanchaves/bert-large-portuguese-cased-assin-entailment](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-assin-entailment) | 0.92    | 0.828 |
 | [ruanchaves/bert-base-portuguese-cased-assin-entailment](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-assin-entailment) | 0.92   | 0.827 |
 
-### HateBR ( Offensive Language Detection )
+### [HateBR](https://huggingface.co/datasets/ruanchaves/hatebr) ( Offensive Language Detection )
 
 
 | Model                                                    | Accuracy | F1  |
@@ -73,7 +73,7 @@ Below is a summary of the results achieved on each dataset.
 | [ruanchaves/mdeberta-v3-base-hatebr](https://huggingface.co/ruanchaves/mdeberta-v3-base-hatebr)          | 0.916 | 0.916 |
 | [ruanchaves/bert-base-portuguese-cased-hatebr](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-hatebr) | 0.914 | 0.914 |
 
-### FaQUaD-NLI ( Question Answering )
+### [FaQUaD-NLI](https://huggingface.co/datasets/ruanchaves/faquad-nli) ( Question Answering )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
@@ -81,7 +81,7 @@ Below is a summary of the results achieved on each dataset.
 | [ruanchaves/mdeberta-v3-base-faquad-nli](https://huggingface.co/ruanchaves/mdeberta-v3-base-faquad-nli)          | 0.926 | 0.926 |
 | [ruanchaves/bert-base-portuguese-cased-faquad-nli](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-faquad-nli) | 0.92 | 0.883 |
 
-### PorSimplesSent ( Text Simplification )
+### [PorSimplesSent](https://huggingface.co/datasets/ruanchaves/porsimplessent) ( Text Simplification )
 
 | Model                                                    | Accuracy | F1  |
 |----------------------------------------------------------|---------|------|
