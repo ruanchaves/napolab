@@ -99,7 +99,7 @@ author = {Chaves Rodrigues, Ruan and Tanti, Marc and Agerri, Rodrigo},
 doi = {10.5281/zenodo.7781848},
 month = {3},
 title = {{Evaluation of Portuguese Language Models}},
-url = {https://github.com/ruanchaves/eplm},
+url = {https://github.com/ruanchaves/napolab},
 version = {1.0.0},
 year = {2023}
 }
