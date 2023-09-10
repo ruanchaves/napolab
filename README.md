@@ -12,6 +12,8 @@ The **Napolab** is your go-to collection of Portuguese datasets with the followi
 * 👩‍🔧 **Human**: Expert human annotations only. No automatic or unreliable annotations.
 * 🎓 **General**: No domain-specific knowledge or advanced preparation is needed to solve dataset tasks.
 
+Napolab is structured similarly to benchmarks like GLUE and [PLUE](https://github.com/ju-resplande/PLUE). All datasets come with either two or three fields: `'sentence1', 'sentence2', 'label'` or just `'sentence1', 'label'`. To evaluate LLMs using Napolab, you simply need to design prompts to get label predictions from the model.
+
 Napolab currently includes the following datasets:
 
 | | | |
@@ -19,9 +21,6 @@ Napolab currently includes the following datasets:
 |[assin](https://huggingface.co/datasets/assin) | [assin2](https://huggingface.co/datasets/assin2) | [rerelem](https://huggingface.co/datasets/ruanchaves/rerelem)|
 |[hatebr](https://huggingface.co/datasets/ruanchaves/hatebr)| [reli-sa](https://huggingface.co/datasets/ruanchaves/reli-sa) | [faquad-nli](https://huggingface.co/datasets/ruanchaves/faquad-nli) |
 |[porsimplessent](https://huggingface.co/datasets/ruanchaves/porsimplessent) | | |
-
-
-Napolab is structured similarly to benchmarks like GLUE and [PLUE](https://github.com/ju-resplande/PLUE). All datasets come with either two or three fields: `'sentence1', 'sentence2', 'label'` or just `'sentence1', 'label'`. To evaluate LLMs using Napolab, you simply need to design prompts to get label predictions from the model.
 
 **💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. Plus, if you've evaluated models on this benchmark, we'd love to hear about it, especially results from recent LLMs.
 
