@@ -10,7 +10,7 @@ The **Napolab** is your go-to collection of Portuguese datasets with the followi
 * ✅ **Reliable**: Metrics correlate reliably with human judgments (accuracy, F1 score, Pearson correlation, etc.).
 * 🌐 **Public**: Every dataset is available through a public link.
 * 👩‍🔧 **Human**: Expert human annotations only. No automatic or unreliable annotations.
-* 🎓 **General**: No domain-specific knowledge required. Any educated Portuguese speaker can tackle the tasks in these datasets without advanced preparation.
+* 🎓 **General**: No domain-specific knowledge or advanced preparation is needed to solve dataset tasks.
 
 Napolab currently includes the following datasets:
 
