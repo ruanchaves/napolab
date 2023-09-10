@@ -24,78 +24,18 @@ This repository contains links to demos, models fine-tuned on the benchmark, and
 
 We are open to expanding the benchmark, and suggestions for future additions are welcome in the issues. We also welcome evaluation results from any models on this benchmark, and we are particularly curious about the outcomes of evaluating recent LLMs on these datasets.
 
-In addition to making these datasets available in Portuguese, all datasets have also been automatically translated into English, Spanish, Galician, and Catalan using the `facebook/nllb-200-1.3B` model through the [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate) library.
+In addition to making these datasets available in Portuguese, all datasets have also been automatically translated into **English, Spanish, Galician, and Catalan** using the `facebook/nllb-200-1.3B` model through the [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate) library.
 
-The small `napolab.py` script in this repository includes a convenient `DatasetLoader`, a thin wrapper around the `datasets` library, to access the datasets available on the Hugging Face Hub:
-
-```python
-from napolab import DatasetLoader
-
-loader = DatasetLoader()
-
->>> loader.DATASET_NAMES
-['assin', 'assin2', 'rerelem', 'hatebr', 'reli-sa', 'faquad-nli', 'porsimplessent']
-
->>> loader.SUPPORTED_LANGUAGES
-{'portuguese': 'por', 'english': 'eng', 'spanish': 'spa', 'catalan': 'cat', 'galician': 'glg'}
-
->>> loader.SUPPORTED_VARIANTS # This field is applicable only to the ASSIN dataset.
-['full', 'br', 'pt']
-```
-
-A few examples of its usage:
+The small `napolab.py` script in this repository includes a convenient `load_napolab_benchmark` function that will download the entire Napolab benchmark from the Hugging Face Hub, including all translated versions:
 
 ```python
-from napolab import DatasetLoader
+from napolab import load_napolab_benchmark
 
-loader = DatasetLoader()
+napolab = load_napolab_benchmark(include_translations=True)
 
-datasets = {}
-# This will load all datasets that make up the Napolab benchmark in the Portuguese language.
-for dataset_name in loader.DATASET_NAMES:
-    if dataset_name in ["assin", "assin2"]:
-        datasets[f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte")
-        datasets[f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts")
-    else:
-        datasets[dataset_name] = loader.load(dataset_name)
-
-# It is also possible to load only the Brazilian Portuguese or European Portuguese portion of ASSIN instead of loading both portions as a single dataset:
-
-datasets["assin-rte-ptbr"] = loader.load("assin", task="rte", hf_args=["ptbr"])
-datasets["assin-rte-ptpt"] = loader.load("assin", task="rte", hf_args=["ptpt"])
-datasets["assin-sts-ptbr"] = loader.load("assin", task="sts", hf_args=["ptbr"])
-datasets["assin-sts-ptpt"] = loader.load("assin", task="sts", hf_args=["ptpt"])
-
-# Let's also load all translated datasets:
-
-translated_datasets = {}
-for language in ["english", "spanish", "galician", "catalan"]:
-    if language not in translated_datasets:
-        translated_datasets[language] = {}
-    for dataset_name in loader.DATASET_NAMES:
-        if dataset_name in ["assin", "assin2"]:
-            # Load the full splits
-            translated_datasets[language][f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte", language=language)
-            translated_datasets[language][f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts", language=language)
-            if dataset_name == "assin":
-                # Alternatively, for the ASSIN dataset, load just one variant
-                translated_datasets[language]["assin-rte-ptbr"] = loader.load("assin", task="rte", variant="br")
-                translated_datasets[language]["assin-rte-ptpt"] = loader.load("assin", task="rte", variant="pt")
-                translated_datasets["assin-sts-ptbr"] = loader.load("assin", task="sts", variant="br")
-                translated_datasets["assin-sts-ptpt"] = loader.load("assin", task="sts", variant="pt")            
-        else:
-            translated_datasets[language][dataset_name] = loader.load(dataset_name, language=language)
+benchmark = napolab["datasets"]
+translated_benchmark = napolab["translations"]
 ```
-
-The `load` method of the `DataLoader` object supports the following arguments:
-
-* `dataset_name`: The name of the dataset to be loaded (from `loader.DATASET_NAMES`).
-* `language`: The language of the dataset to be loaded, either the name of the language or the language code. Defaults to `"por"`.
-* `variant`: Applicable only to the ASSIN dataset. The variant split to be loaded (either "br" for Brazilian Portuguese or "pt" for European Portuguese).
-* `clean`: Whether to return the dataset in a cleaned format (i.e., removing irrelevant fields and renaming the fields before returning). If set to `True`, only the fields **sentence1**, **sentence2**, and **label** will be returned for datasets with sentence pairs, or **sentence1** and **label** otherwise. Defaults to `True`.
-* `task`: Applicable only to the ASSIN and ASSIN 2 datasets. The task to return. Accepted values are "entailment" or "rte" for the RTE task, and "similarity" or "sts" for the STS task.
-* `hf_args`: Extra arguments that will be passed to the `datasets.load_dataset` call.
-* `hf_kwargs`: Keyword arguments that will be passed to the `datasets.load_dataset` call.
 
 ## Demos
 
