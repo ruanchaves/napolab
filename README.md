@@ -43,27 +43,6 @@ loader = DatasetLoader()
 ['full', 'br', 'pt']
 ```
 
-The benchmark is open to expansion and suggestions of future additions to this list are also welcome in the issues.
-
-Besides making these datasets available in Portuguese, all datasets have also been automatically translated into English, Spanish, Galician and Catalan using the `facebook/nllb-200-1.3B` model through the [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate) library.
-
-The small `napolab.py` script in this repository has a convenient `DatasetLoader`, a thin wrapper around the `datasets` library, to access the datasets made available on the Hugging Face Hub:
-
-```python
-from napolab import DatasetLoader
-
-loader = DatasetLoader()
-
->>> loader.DATASET_NAMES
-['assin', 'assin2', 'rerelem', 'hatebr', 'reli-sa', 'faquad-nli', 'porsimplessent']
-
->>> loader.SUPPORTED_LANGUAGES
-{'portuguese': 'por', 'english': 'eng', 'spanish': 'spa', 'catalan': 'cat', 'galician': 'glg'}
-
->>> loader.SUPPORTED_VARIANTS # This field is applicable only to the ASSIN dataset.
-['full', 'br', 'pt']
-```
-
 A few examples of its usage:
 
 ```python
