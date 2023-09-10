@@ -1,7 +1,7 @@
 # Natural Portuguese Language Benchmark (Napolab)
 
 <p align="center">
-  <img width="300" height="300" src="https://raw.githubusercontent.com/ruanchaves/napolab/main/ideogram_ai_logo.png">
+  <img width="300" height="300" src="https://raw.githubusercontent.com/ruanchaves/napolab/main/images/ideogram_ai_logo.png">
 </p>
 
 The Natural Portuguese Language Benchmark (Napolab) is designed to be a collection of Portuguese datasets that are:
