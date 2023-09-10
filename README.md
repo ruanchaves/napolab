@@ -80,11 +80,11 @@ Experience our fine-tuned models on [Hugging Face Spaces](https://huggingface.co
 Our research is ongoing, and we are currently working on describing our experiments in a paper, which will be published soon. In the meanwhile, if you would like to cite our work or models before the publication of the paper, please use the following BibTeX citation for this repository: 
 
 ```
-@software{Chaves_Rodrigues_eplm_2023,
+@software{Chaves_Rodrigues_napolab_2023,
 author = {Chaves Rodrigues, Ruan and Tanti, Marc and Agerri, Rodrigo},
 doi = {10.5281/zenodo.7781848},
 month = {3},
-title = {{Evaluation of Portuguese Language Models}},
+title = {{Natural Portuguese Language Benchmark (Napolab)}},
 url = {https://github.com/ruanchaves/napolab},
 version = {1.0.0},
 year = {2023}
