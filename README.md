@@ -12,7 +12,7 @@ The **Napolab** is your go-to collection of Portuguese datasets with the followi
 * 👩‍🔧 **Human**: Expert human annotations only. No automatic or unreliable annotations.
 * 🎓 **General**: No domain-specific knowledge required. Any educated Portuguese speaker can tackle the tasks in these datasets without advanced preparation.
 
-In this repo, you'll find links to demos, models fine-tuned on Napolab, and guidelines to use the datasets effectively. Napolab currently includes the following datasets:
+Napolab currently includes the following datasets:
 
 * [assin](https://huggingface.co/datasets/assin)
 * [assin2](https://huggingface.co/datasets/assin2)
