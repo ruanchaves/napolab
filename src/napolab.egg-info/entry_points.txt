@@ -1,0 +1,2 @@
+[console_scripts]
+realpython = napolab.__main__:main

@@ -1,6 +1,11 @@
 import datasets
 from datasets import DatasetDict, Dataset
 from typing import List, Dict, Union, Optional
+import os
+import pandas as pd
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s")
 
 class DatasetLoader:
     """
@@ -281,8 +286,8 @@ def load_napolab_benchmark(include_translations=True):
                         # Alternatively, for the ASSIN dataset, load just one variant
                         translated_datasets[language]["assin-rte-ptbr"] = loader.load("assin", task="rte", variant="br")
                         translated_datasets[language]["assin-rte-ptpt"] = loader.load("assin", task="rte", variant="pt")
-                        translated_datasets["assin-sts-ptbr"] = loader.load("assin", task="sts", variant="br")
-                        translated_datasets["assin-sts-ptpt"] = loader.load("assin", task="sts", variant="pt")            
+                        translated_datasets[language]["assin-sts-ptbr"] = loader.load("assin", task="sts", variant="br")
+                        translated_datasets[language]["assin-sts-ptpt"] = loader.load("assin", task="sts", variant="pt")            
                 else:
                     translated_datasets[language][dataset_name] = loader.load(dataset_name, language=language)
     
@@ -292,3 +297,45 @@ def load_napolab_benchmark(include_translations=True):
     }
 
     return output
+
+
+def export_napolab_benchmark(output_path, include_translations=True):
+    """
+    Load the Napolab benchmark datasets using load_napolab_benchmark and save each split of 
+    each dataset as CSV in a structured hierarchy of folders and subfolders.
+    
+    Args:
+        output_path (str): The path where datasets will be saved.
+        include_translations (bool): Determines if translated versions of the datasets should be 
+        saved. Defaults to True.
+    """
+    
+    # Load the datasets
+    data = load_napolab_benchmark(include_translations=include_translations)
+
+    # Ensure top-level "datasets" and "translations" folders exist
+    os.makedirs(os.path.join(output_path, "datasets"), exist_ok=True)
+    if include_translations:
+        os.makedirs(os.path.join(output_path, "translations"), exist_ok=True)
+
+    # Save Portuguese datasets
+    for dataset_name, dataset_obj in data["datasets"].items():
+        for split, split_data in dataset_obj.items():
+            # Define the path for this dataset split
+            split_path = os.path.join(output_path, "datasets", dataset_name, f"{split}.csv")
+            os.makedirs(os.path.dirname(split_path), exist_ok=True)
+            # Convert to pandas and save as CSV
+            split_data.to_pandas().to_csv(split_path, index=False)
+            logging.info(f"Saved {split_path}")
+
+    # Save Translations
+    if include_translations:
+        for language, datasets in data["translations"].items():
+            for dataset_name, dataset_obj in datasets.items():
+                for split, split_data in dataset_obj.items():
+                    # Define the path for this dataset split
+                    split_path = os.path.join(output_path, "translations", language, dataset_name, f"{split}.csv")
+                    os.makedirs(os.path.dirname(split_path), exist_ok=True)
+                    # Convert to pandas and save as CSV
+                    split_data.to_pandas().to_csv(split_path, index=False)
+                    logging.info(f"Saved {split_path}")

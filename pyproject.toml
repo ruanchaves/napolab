@@ -1,0 +1,32 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "napolab"
+version = "1.0.1"
+description = "Natural Portuguese Language Benchmark"
+readme = "README.md"
+authors = [{ name = "Ruan Chaves Rodrigues", email = "ruanchaves93@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["ai", "llm", "nlp"]
+dependencies = [
+    "datasets"
+]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/ruanchaves/napolab"
+
+[project.scripts]
+realpython = "napolab.__main__:main"
