@@ -90,3 +90,7 @@ version = {1.0.0},
 year = {2023}
 }
 ```
+
+## Disclaimer
+
+The HateBR dataset, including all its components, is provided strictly for academic and research purposes. The use of the HateBR dataset for any commercial or non-academic purpose is expressly prohibited without the prior written consent of [SINCH](https://www.sinch.com/).
