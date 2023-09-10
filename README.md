@@ -14,10 +14,13 @@ The **Napolab** is your go-to collection of Portuguese datasets with the followi
 
 Napolab currently includes the following datasets:
 
+<div align="center">
 | | | | |
 | :---: |  :---:  |  :---: |  :---: |
 |[assin](https://huggingface.co/datasets/assin) | [assin2](https://huggingface.co/datasets/assin2) | [rerelem](https://huggingface.co/datasets/ruanchaves/rerelem) | [hatebr](https://huggingface.co/datasets/ruanchaves/hatebr)|
 |[reli-sa](https://huggingface.co/datasets/ruanchaves/reli-sa) | [faquad-nli](https://huggingface.co/datasets/ruanchaves/faquad-nli) | [porsimplessent](https://huggingface.co/datasets/ruanchaves/porsimplessent) | |
+</div>
+
 
 **💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. Plus, if you've evaluated models on this benchmark, we'd love to hear about it, especially results from recent LLMs.
 
