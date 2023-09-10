@@ -4,15 +4,15 @@
   <img width="300" height="300" src="https://raw.githubusercontent.com/ruanchaves/napolab/main/images/ideogram_ai_logo.png">
 </p>
 
-The Natural Portuguese Language Benchmark (Napolab) is designed to be a collection of Portuguese datasets that are:
+The **Napolab** is your go-to collection of Portuguese datasets with the following characteristics:
 
-* **Natural**: Composed, as far as possible, of natural Portuguese text or text that has undergone professional translation.
-* **Reliable**: The standard metrics used to evaluate the tasks on the dataset should reliably correlate with human judgments (such as accuracy, F1 score, Pearson correlation coefficient, etc.).
-* **Public**: All datasets must be available and downloadable via a publicly accessible link.
-* **Human**: All datasets must be annotated by human experts without any automation.
-* **General**: The datasets should not necessitate domain-specific knowledge or any preparation for an educated Portuguese speaker to solve the suggested tasks.
+* 🌿 **Natural**: As much as possible, datasets consist of natural Portuguese text or professionally translated text.
+* ✅ **Reliable**: Metrics correlate reliably with human judgments (accuracy, F1 score, Pearson correlation, etc.).
+* 🌐 **Public**: Every dataset is available through a public link.
+* 👩‍🔧 **Human**: Expert human annotations only. No automatic or unreliable annotations.
+* 🎓 **General**: No domain-specific knowledge required. Any educated Portuguese speaker can tackle the tasks in these datasets without advanced preparation.
 
-This repository contains links to demos, models fine-tuned on the benchmark, and instructions for using the datasets in the most convenient manner. The benchmark currently includes the following datasets:
+In this repo, you'll find links to demos, models fine-tuned on Napolab, and guidelines to use the datasets effectively. Napolab currently includes the following datasets:
 
 * [assin](https://huggingface.co/datasets/assin)
 * [assin2](https://huggingface.co/datasets/assin2)
@@ -22,9 +22,11 @@ This repository contains links to demos, models fine-tuned on the benchmark, and
 * [faquad-nli](https://huggingface.co/datasets/ruanchaves/faquad-nli)
 * [porsimplessent](https://huggingface.co/datasets/ruanchaves/porsimplessent)
 
-We are open to expanding the benchmark, and suggestions for future additions are welcome in the issues. We also welcome evaluation results from any models on this benchmark, and we are particularly curious about the outcomes of evaluating recent LLMs on these datasets.
+**💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. Plus, if you've evaluated models on this benchmark, we'd love to hear about it, especially results from recent LLMs.
 
-In addition to making these datasets available in Portuguese, all datasets have also been automatically translated into **English, Spanish, Galician, and Catalan** using the `facebook/nllb-200-1.3B` model through the [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate) library.
+🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
+
+# Quick Start 🚀
 
 The simplest way to use the Napolab benchmark is to run the commands:
 
@@ -33,9 +35,9 @@ pip install napolab
 python -m napolab
 ```
 
-This will download all the datasets from the Hugging Face Hub and save them in CSV format under the current folder.
+This fetches all datasets from Hugging Face Hub and saves them as CSVs in your current folder.
 
-If you would rather deal with the datasets in the format of the `datasets` library, you can also load the benchmark in this way:
+For the `datasets` library format:
 
 ```python
 from napolab import load_napolab_benchmark
@@ -46,21 +48,9 @@ benchmark = napolab["datasets"]
 translated_benchmark = napolab["translations"]
 ```
 
-## Demos
+## 🤖 Models
 
-All of our fine-tuned models have been integrated into an appropriate [Hugging Face Space](https://huggingface.co/ruanchaves).
-
-Interact with our models in your browser by exploring our demos:
-
-* [Portuguese Offensive Language Detection](https://ruanchaves-portuguese-offensive-language-de-d4d0507.hf.space)
-* [Portuguese Question Answering](https://ruanchaves-portuguese-question-answering.hf.space)
-* [Portuguese Semantic Similarity](https://ruanchaves-portuguese-semantic-similarity.hf.space)
-* [Portuguese Textual Entailment](https://ruanchaves-portuguese-textual-entailment.hf.space)
-* [Portuguese Text Simplification](https://ruanchaves-portuguese-text-simplification.hf.space)
-
-## Models
-
-We are making a few models fine-tuned on the datasets in this benchmark available on the Hugging Face Hub. 
+We've made several models, fine-tuned on this benchmark, available on Hugging Face Hub:
 
 | Datasets                     | mDeBERTa v3                                                                                                    | BERT Large                                                                                                    | BERT Base                                                                                                     |
 |:----------------------------:|:--------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------:|
@@ -73,7 +63,17 @@ We are making a few models fine-tuned on the datasets in this benchmark availabl
 | **PorSimplesSent**           | [Link](https://huggingface.co/ruanchaves/mdeberta-v3-base-porsimplessent)                                     | [Link](https://huggingface.co/ruanchaves/bert-large-portuguese-cased-porsimplessent)                         | [Link](https://huggingface.co/ruanchaves/bert-base-portuguese-cased-porsimplessent)                          |
 
 
-More details about how the models have been fine-tuned and their results on the benchmark can be found under [EVALUATION.md](EVALUATION.md). 
+For model fine-tuning details and benchmark results, visit [EVALUATION.md](EVALUATION.md). 
+
+## 🎮 Demos
+
+Experience our fine-tuned models on [Hugging Face Spaces](https://huggingface.co/ruanchaves). Check out:
+
+* [Portuguese Offensive Language Detection](https://ruanchaves-portuguese-offensive-language-de-d4d0507.hf.space)
+* [Portuguese Question Answering](https://ruanchaves-portuguese-question-answering.hf.space)
+* [Portuguese Semantic Similarity](https://ruanchaves-portuguese-semantic-similarity.hf.space)
+* [Portuguese Textual Entailment](https://ruanchaves-portuguese-textual-entailment.hf.space)
+* [Portuguese Text Simplification](https://ruanchaves-portuguese-text-simplification.hf.space)
 
 ## Citation
 
