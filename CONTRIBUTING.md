@@ -6,6 +6,7 @@ Thank you for considering contributing to the **Natural Portuguese Language Benc
 - [Adding Datasets 📊](#adding-datasets-📊)
   - [Guidelines](#guidelines)
   - [Step-by-Step Guide](#step-by-step-guide)
+- [Sharing Model Evaluations](#sharing-model-evaluations)
 
 ---
 
@@ -55,6 +56,10 @@ If you prefer to submit a pull request for direct integration into the benchmark
 3. After creating a dataset reader on the Hugging Face Hub, submit a pull request to the Napolab repository to modify the library code at [napolab.py](https://github.com/ruanchaves/napolab/blob/main/src/napolab/napolab.py) to include your new dataset.
 
 I must emphasize that there's no need for you to perform steps two and three yourself! You can merely open an issue and let the project maintainers handle steps two and three. Our goal is to make the dataset addition process as straightforward as possible.
+
+## Sharing Model Evaluations
+
+If you've evaluated models on the Natural Portuguese Language Benchmark (Napolab), especially recent Large Language Models (LLMs), please open an issue linking to your work. Noteworthy evaluations will be mentioned in the repository's README. Your detailed insights will greatly benefit the community's understanding of model performance on Portuguese tasks.
 
 ---
 
