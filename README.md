@@ -20,7 +20,7 @@ Napolab currently includes the following datasets:
 |[hatebr](https://huggingface.co/datasets/ruanchaves/hatebr)| [reli-sa](https://huggingface.co/datasets/ruanchaves/reli-sa) | [faquad-nli](https://huggingface.co/datasets/ruanchaves/faquad-nli) |
 |[porsimplessent](https://huggingface.co/datasets/ruanchaves/porsimplessent) | | |
 
-**💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. Plus, if you've evaluated models on this benchmark, we'd love to hear about it, especially results from recent LLMs.
+**💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. Plus, if you've evaluated models on this benchmark, we'd love to hear about it, especially results from recent LLMs. For more information, read our [CONTRIBUTING.md](CONTRIBUTING.md).
 
 🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
 
