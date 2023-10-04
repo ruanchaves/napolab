@@ -20,25 +20,25 @@ Check if your dataset adheres to our main characteristics required for admission
 
 If you are unsure whether your dataset meets all the criteria, open an issue anyway, and we will review it to determine if it can be included in the benchmark. 
 
-#### **Natural**
+#### **1. Natural**
 
 Whenever possible, datasets should consist of natural Portuguese text or professionally translated text. Datasets consisting mostly or entirely of automatically translated text should not be included in this benchmark.
 
-#### **Reliable**
+#### **2. Reliable**
 
 Metrics should correlate reliably with human judgments (e.g., accuracy, F1 score, Pearson correlation). For instance, tasks based on machine translation metrics (e.g., BLEU, METEOR) should not be included.
 
-#### **Public**
+#### **3. Public**
 
 Your dataset must be **publicly available for download via a public URL**, GitHub repository, or any other method that allows easy access. 
 
 Datasets requiring data distribution through proprietary APIs (e.g., the Twitter API), or only available via a registration form, are not considered public for the purposes of this benchmark.
 
-#### **Human**
+#### **4. Human**
 
 Every record in your dataset must have been annotated by a human expert. Datasets that have been automatically labeled (e.g., labeling based on keyword matching) should not be admitted to this benchmark.
 
-#### **General**
+#### **5. General**
 
 No domain-specific knowledge or advanced preparation should be necessary to solve dataset tasks. The tasks should be accessible to any educated speaker of the Portuguese language. This excludes, for instance, legal datasets, medical datasets, and college entrance exams.
 
