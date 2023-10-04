@@ -16,7 +16,7 @@ If you are unsure whether your dataset meets all the criteria, open an issue any
 
 #### 🌿 **Natural**
 
-Whenever possible, datasets should consist of natural Portuguese text or professionally translated text. Datasets consisting mostly or entirely of translated text should not be included in this benchmark.
+Whenever possible, datasets should consist of natural Portuguese text or professionally translated text. Datasets consisting mostly or entirely of automatically translated text should not be included in this benchmark.
 
 #### ✅ **Reliable**
 
