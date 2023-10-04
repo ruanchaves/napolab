@@ -2,6 +2,11 @@
 
 Thank you for considering contributing to the **Natural Portuguese Language Benchmark (Napolab)**. By participating in this project, you agree to abide by our [code of conduct](CODE_OF_CONDUCT.md).
 
+## Table of Contents
+- [Adding Datasets 📊](#adding-datasets-📊)
+  - [Guidelines](#guidelines)
+  - [Step-by-Step Guide](#step-by-step-guide)
+
 ---
 
 ## Adding Datasets 📊
