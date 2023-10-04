@@ -54,7 +54,7 @@ If you prefer to submit a pull request for direct integration into the benchmark
    - Ensure the dataset is structured as a single-label text classification task. Note that many tasks can be adapted to this format; for instance, question-answering tasks can be converted into textual entailment tasks.
 3. After creating a dataset reader on the Hugging Face Hub, submit a pull request to the Napolab repository to modify the library code at [napolab.py](https://github.com/ruanchaves/napolab/blob/main/src/napolab/napolab.py) to include your new dataset.
 
-I must emphasize: there's no need for you to perform steps two and three yourself! You can merely open an issue and let the project maintainers handle steps two and three. Our goal is to make the dataset addition process as straightforward as possible.
+I must emphasize that there's no need for you to perform steps two and three yourself! You can merely open an issue and let the project maintainers handle steps two and three. Our goal is to make the dataset addition process as straightforward as possible.
 
 ---
 
