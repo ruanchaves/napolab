@@ -48,6 +48,10 @@ translated_benchmark = napolab["translations"]
 
 Napolab is structured similarly to benchmarks like GLUE and [PLUE](https://github.com/ju-resplande/PLUE). All datasets come with either two or three fields: `'sentence1', 'sentence2', 'label'` or just `'sentence1', 'label'`. To evaluate LLMs using Napolab, you simply need to design prompts to get label predictions from the model.
 
+## Leaderboard 
+
+The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
+
 ## 🤖 Models
 
 We've made several models, fine-tuned on this benchmark, available on Hugging Face Hub:
