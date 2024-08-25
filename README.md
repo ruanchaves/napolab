@@ -24,9 +24,9 @@ The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go
 
 🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
 
-# 📊 Start here: Dataset Format for Experiments with Large Language Models (LLMs)
+## 📊 Napolab and Experiments with Large Language Models (LLMs)
 
-A new format of the Napolab benchmark specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two additional fields:
+A new format of Napolab specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two main fields:
 
 * **Prompt**: The input prompt to be fed into the LLM.
 * **Answer**: The expected classification output label from the LLM, which is always a number between 0 and 5.
