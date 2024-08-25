@@ -1,1 +1,1 @@
-from .napolab import DatasetLoader, load_napolab_benchmark, export_napolab_benchmark
+from .napolab import DatasetLoader, load_napolab_benchmark, export_napolab_benchmark, convert_to_completion_format
