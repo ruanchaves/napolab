@@ -1,10 +1,19 @@
-# Natural Portuguese Language Benchmark (Napolab)
+# 🌎 Natural Portuguese Language Benchmark (Napolab)
 
-<p align="center">
-  <img width="300" height="300" src="https://raw.githubusercontent.com/ruanchaves/napolab/main/images/ideogram_ai_logo.png">
-</p>
+The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go-to collection of Portuguese datasets for the evaluation of Large Language Models.
 
-The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go-to collection of Portuguese datasets with the following characteristics:
+## 📊 Napolab and Experimentation with Large Language Models (LLMs)
+
+A format of Napolab specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two main fields:
+
+* **Prompt**: The input prompt to be fed into the LLM.
+* **Answer**: The expected classification output label from the LLM, which is always a number between 0 and 5.
+
+The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you’ve used Napolab for LLM evaluations, please share your findings with us!
+
+## Information
+
+Napolab adopts the following guidelines for the inclusion of datasets:
 
 * 🌿 **Natural**: As much as possible, datasets consist of natural Portuguese text or professionally translated text.
 * ✅ **Reliable**: Metrics correlate reliably with human judgments (accuracy, F1 score, Pearson correlation, etc.).
@@ -23,15 +32,6 @@ The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go
 **💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. For more information, read our [CONTRIBUTING.md](CONTRIBUTING.md).
 
 🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
-
-## 📊 Napolab and Experiments with Large Language Models (LLMs)
-
-A new format of Napolab specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two main fields:
-
-* **Prompt**: The input prompt to be fed into the LLM.
-* **Answer**: The expected classification output label from the LLM, which is always a number between 0 and 5.
-
-The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you've evaluated recent LLMs on this benchmark, please let us know! We'd love to hear about it.
 
 ## Leaderboards 
 
