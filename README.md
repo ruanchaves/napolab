@@ -2,7 +2,7 @@
 
 The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go-to collection of Portuguese datasets for the evaluation of Large Language Models.
 
-## 📊 Napolab and Experimentation with Large Language Models (LLMs)
+## 📊 Napolab for Large Language Models (LLMs)
 
 A format of Napolab specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two main fields:
 
@@ -11,7 +11,7 @@ A format of Napolab specifically designed for researchers experimenting with Lar
 
 The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you’ve used Napolab for LLM evaluations, please share your findings with us!
 
-## Information
+## Guidelines
 
 Napolab adopts the following guidelines for the inclusion of datasets:
 
