@@ -11,6 +11,10 @@ A format of Napolab specifically designed for researchers experimenting with Lar
 
 The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you’ve used Napolab for LLM evaluations, please share your findings with us!
 
+## Leaderboards 
+
+The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
+
 ## Guidelines
 
 Napolab adopts the following guidelines for the inclusion of datasets:
@@ -33,10 +37,6 @@ Napolab adopts the following guidelines for the inclusion of datasets:
 
 🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
 
-## Leaderboards 
-
-The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
-
 ## 🤖 Models
 
 We've made several models, fine-tuned on this benchmark, available on Hugging Face Hub:
@@ -53,6 +53,27 @@ We've made several models, fine-tuned on this benchmark, available on Hugging Fa
 
 
 For model fine-tuning details and benchmark results, visit [EVALUATION.md](EVALUATION.md). 
+
+## Usage
+
+To reproduce the Napolab benchmark available on the Hugging Face Hub locally, follow these steps:
+
+1. Clone the repository and install the library:
+
+```bash
+git clone https://github.com/ruanchaves/napolab.git
+cd napolab
+pip install -e .
+```
+
+2. Generate the benchmark file:
+   
+```python
+from napolab import export_napolab_benchmark, convert_to_completions_format
+input_df = export_napolab_benchmark()
+output_df = convert_to_completions_format(input_df)
+output_df.reset_index().to_csv("test.csv", index=False)
+```
 
 ## Citation
 
