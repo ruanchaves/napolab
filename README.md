@@ -60,7 +60,7 @@ To reproduce the Napolab benchmark available on the Hugging Face Hub locally, fo
 
 1. Clone the repository and install the library:
 
-```
+```bash
 git clone https://github.com/ruanchaves/napolab.git
 cd napolab
 pip install -e .
@@ -68,7 +68,7 @@ pip install -e .
 
 2. Generate the benchmark file:
    
-```
+```python
 from napolab import export_napolab_benchmark, convert_to_completions_format
 input_df = export_napolab_benchmark()
 output_df = convert_to_completions_format(input_df)
