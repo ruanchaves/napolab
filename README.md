@@ -11,6 +11,10 @@ A format of Napolab specifically designed for researchers experimenting with Lar
 
 The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you’ve used Napolab for LLM evaluations, please share your findings with us!
 
+## Leaderboards 
+
+The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
+
 ## Guidelines
 
 Napolab adopts the following guidelines for the inclusion of datasets:
@@ -32,10 +36,6 @@ Napolab adopts the following guidelines for the inclusion of datasets:
 **💡 Contribute**: We're open to expanding Napolab! Suggest additions in the issues. For more information, read our [CONTRIBUTING.md](CONTRIBUTING.md).
 
 🌍 For broader accessibility, all datasets have translations in **Catalan, English, Galician and Spanish** using the `facebook/nllb-200-1.3B model` via [Easy-Translate](https://github.com/ikergarcia1996/Easy-Translate).
-
-## Leaderboards 
-
-The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
 
 ## 🤖 Models
 
