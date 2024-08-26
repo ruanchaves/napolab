@@ -54,6 +54,27 @@ We've made several models, fine-tuned on this benchmark, available on Hugging Fa
 
 For model fine-tuning details and benchmark results, visit [EVALUATION.md](EVALUATION.md). 
 
+## Usage
+
+To reproduce the Napolab benchmark available on the Hugging Face Hub locally, follow these steps:
+
+1. Clone the repository and install the library:
+
+```
+git clone https://github.com/ruanchaves/napolab.git
+cd napolab
+pip install -e .
+```
+
+2. Generate the benchmark file:
+   
+```
+from napolab import export_napolab_benchmark, convert_to_completions_format
+input_df = export_napolab_benchmark()
+output_df = convert_to_completions_format(input_df)
+output_df.reset_index().to_csv("test.csv", index=False)
+```
+
 ## Citation
 
 Our research is ongoing, and we are currently working on describing our experiments in a paper, which will be published soon. In the meanwhile, if you would like to cite our work or models before the publication of the paper, please use the following BibTeX citation for this repository: 
