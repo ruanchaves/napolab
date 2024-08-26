@@ -314,8 +314,6 @@ def convert_to_completion_format(df):
     1: sentence1 is identical to sentence2.
     2: sentence2 is more simple than sentence1.
     Provide only the label (either 0, 1, or 2) as the answer. No other text.
-    
-    Here are the sentences:
 
     """
 
@@ -325,8 +323,6 @@ def convert_to_completion_format(df):
     1: The comment is non-offensive.
     Provide only the label (either 0 or 1) as the answer. No other text.
 
-    Here is the comment:
-    
     """
 
     relisa_prompt = """You will be given a sentence (sentence1) taken from a book review. Your task is to classify the sentiment expressed in the sentence. The possible labels are:
@@ -338,8 +334,6 @@ def convert_to_completion_format(df):
     
     Provide only the label (either 0, 1, 2 or 3) as the answer. No other text.
 
-    Here is the sentence:
-    
     """
 
     assin_sts_prompt = """You will be given two sentences, sentence1 and sentence2. Your task is to determine the semantic relatedness between these two sentences on a scale from 1 to 5. The guidelines for each label are:
@@ -351,8 +345,6 @@ def convert_to_completion_format(df):
     5: The sentences mean essentially the same thing.
     Provide only the label (an integer between 1 and 5) as the answer. No other text.
 
-    Here are the sentences:
-
     """
 
     assin_rte_prompt = """You will be given two sentences, sentence1 and sentence2. Your task is to classify the relationship between the two sentences. The possible labels are:
@@ -362,8 +354,6 @@ def convert_to_completion_format(df):
     2: Paraphrase. The sentences are paraphrases of each other, meaning they both entail each other (bidirectional entailment).
     Provide only the label (0, 1, or 2) as the answer. No other text.
 
-    Here are the sentences:
-
     """
 
     assin2_rte_prompt = """You will be given two sentences, sentence1 and sentence2. Your task is to classify the relationship between the two sentences. The possible labels are:
@@ -371,8 +361,6 @@ def convert_to_completion_format(df):
     0: No entailment. The sentences are not related in a way where one implies the other.
     1: Entailment. sentence1 (the text) entails sentence2 (the hypothesis). If sentence1 is true, then sentence2 must also be true.
     Provide only the label (0 or 1) as the answer. No other text.
-
-    Here are the sentences:
 
     """
 
@@ -387,8 +375,6 @@ def convert_to_completion_format(df):
     1: Suitable. Sentence2 appropriately answers or addresses sentence1.
 
     Provide only the label (0 or 1) as the answer. No other text.
-
-    Here are the sentences:
 
     """
 
@@ -426,8 +412,19 @@ def convert_to_completion_format(df):
         base_prompt = prompt_templates[dataset_name]
         if dataset_name == "rerelem":
             continue
-        if dataset_name in ['hatebr', 'reli-sa', 'faquad-nli']:
+        if dataset_name in ['hatebr']:
             sentence_prompt = f"""
+            Here is the comment:
+
+            sentence1: {record["sentence1"]}
+
+            The language of sentence1 is {record_language.capitalize()}.
+
+            label:
+            """            
+        elif dataset_name in ['reli-sa', 'faquad-nli']:
+            sentence_prompt = f"""
+            Here is the sentence:
 
             sentence1: {record["sentence1"]}
 
@@ -437,6 +434,7 @@ def convert_to_completion_format(df):
             """
         else:
             sentence_prompt = f"""
+            Here are the sentences:
 
             sentence1: {record["sentence1"]}
 
@@ -450,6 +448,8 @@ def convert_to_completion_format(df):
 
         new_record = {
             "prompt": final_prompt,
+            "system_prompt": base_prompt,
+            "user_prompt": sentence_prompt,
             "answer": record_label,
             "dataset_name": dataset_name,
             "language": record_language,
