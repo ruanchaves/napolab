@@ -311,7 +311,7 @@ def convert_to_completion_format(df):
     porsimplessent_prompt = """You will be given two sentences, sentence1 and sentence2. Your task is to determine the complexity relationship between them. There are three possible labels:
 
     0: sentence1 is more simple than sentence2.
-    1: sentence1 and sentence2 have the same level of complexity.
+    1: sentence1 is identical to sentence2.
     2: sentence2 is more simple than sentence1.
     Provide only the label (either 0, 1, or 2) as the answer. No other text.
     
@@ -392,7 +392,7 @@ def convert_to_completion_format(df):
 
     """
 
-    prompt_templates = {'porsimplessent' : porsimplessent_prompt, 'hatebr': hatebr_prompt, 'reli-sa' : relisa_prompt, 'assin-sts': assin_sts_prompt, 'assin-rte-ptbr': assin_rte_prompt, 'assin-rte-ptpt': assin_rte_prompt, 'assin-sts-ptpt': assin_sts_prompt, 'rerelem': rerelem_prompt, 'assin-sts-ptbr' :assin_sts_prompt, 'assin2-rte': assin_rte_prompt, 'faquad-nli' : faquad_nli_prompt, 'assin2-sts': assin_sts_prompt, 'assin-rte': assin2_rte_prompt}
+    prompt_templates = {'porsimplessent' : porsimplessent_prompt, 'hatebr': hatebr_prompt, 'reli-sa' : relisa_prompt, 'assin-sts': assin_sts_prompt, 'assin-rte-ptbr': assin_rte_prompt, 'assin-rte-ptpt': assin_rte_prompt, 'assin-sts-ptpt': assin_sts_prompt, 'rerelem': rerelem_prompt, 'assin-sts-ptbr' : assin_sts_prompt, 'assin2-rte': assin2_rte_prompt, 'faquad-nli' : faquad_nli_prompt, 'assin2-sts': assin_sts_prompt, 'assin-rte': assin_rte_prompt}
 
     records = df.to_dict("records")
     for idx, record in enumerate(records):
@@ -404,6 +404,10 @@ def convert_to_completion_format(df):
 
         if "assin" in dataset_name and "sts" in dataset_name:
             record_label = round(float(record_label))
+            if record_label == 0:
+                record_label = 1
+            if record_label == 6:
+                record_label = 5
         if "hatebr" in dataset_name:
             record_label = 0 if record_label == 'False' else 1
 
@@ -427,7 +431,7 @@ def convert_to_completion_format(df):
 
             sentence1: {record["sentence1"]}
 
-            The language of sentence1 is {record_language}.
+            The language of sentence1 is {record_language.capitalize()}.
 
             label:
             """
@@ -438,7 +442,7 @@ def convert_to_completion_format(df):
 
             sentence2: {record["sentence2"]}
 
-            The language of sentence1 and sentence2 is {record_language}.
+            The language of sentence1 and sentence2 is {record_language.capitalize()}.
 
             label:
             """
