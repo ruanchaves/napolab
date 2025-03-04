@@ -77,17 +77,18 @@ output_df.reset_index().to_csv("test.csv", index=False)
 
 ## Citation
 
-Our research is ongoing, and we are currently working on describing our experiments in a paper, which will be published soon. In the meanwhile, if you would like to cite our work or models before the publication of the paper, please use the following BibTeX citation for this repository: 
+If you would like to cite our work or models before the publication of the paper, please reference the Master's dissertation [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557).
 
 ```
-@software{Chaves_Rodrigues_napolab_2023,
-author = {Chaves Rodrigues, Ruan and Tanti, Marc and Agerri, Rodrigo},
-doi = {10.5281/zenodo.7781848},
-month = {3},
-title = {{Natural Portuguese Language Benchmark (Napolab)}},
-url = {https://github.com/ruanchaves/napolab},
-version = {1.0.0},
-year = {2023}
+@mastersthesis{chaves2023lessons,
+	title        = {Lessons Learned from the Evaluation of Portuguese Language Models},
+	author       = {Chaves Rodrigues, Ruan},
+	year         = 2023,
+	address      = {Faculty of Information and Communication Technology, Department of Artificial Intelligence},
+	url          = {https://www.um.edu.mt/library/oar/handle/123456789/120557},
+	note         = {M.Sc. (HLST) (Melit.)},
+	school       = {University of Malta},
+	type         = {Master's dissertation}
 }
 ```
 
