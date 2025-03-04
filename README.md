@@ -77,18 +77,15 @@ output_df.reset_index().to_csv("test.csv", index=False)
 
 ## Citation
 
-If you would like to cite our work or models before the publication of the paper, please reference the Master's dissertation [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557).
+If you would like to cite our work or models before the publication of the paper, please reference the Master's thesis [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557).
 
 ```
 @mastersthesis{chaves2023lessons,
-	title        = {Lessons Learned from the Evaluation of Portuguese Language Models},
-	author       = {Chaves Rodrigues, Ruan},
-	year         = 2023,
-	address      = {Faculty of Information and Communication Technology, Department of Artificial Intelligence},
-	url          = {https://www.um.edu.mt/library/oar/handle/123456789/120557},
-	note         = {M.Sc. (HLST) (Melit.)},
-	school       = {University of Malta},
-	type         = {Master's dissertation}
+  title={Lessons learned from the evaluation of Portuguese language models},
+  author={Chaves Rodrigues, Ruan},
+  year={2023},
+  school={University of Malta},
+  url={https://www.um.edu.mt/library/oar/handle/123456789/120557}
 }
 ```
 
