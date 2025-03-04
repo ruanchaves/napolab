@@ -79,7 +79,7 @@ output_df.reset_index().to_csv("test.csv", index=False)
 
 ## Citation
 
-If you would like to cite our work or models before the publication of the paper, please reference the Master's thesis [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557).
+If you would like to cite our work or models, please reference the Master's thesis [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557).
 
 ```
 @mastersthesis{chaves2023lessons,
