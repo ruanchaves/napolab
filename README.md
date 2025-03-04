@@ -15,6 +15,8 @@ The dataset in this format can be accessed at [https://huggingface.co/datasets/r
 
 The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
 
+The Master's thesis [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557) features an extensive evaluation of Transformer models on Napolab.
+
 ## Guidelines
 
 Napolab adopts the following guidelines for the inclusion of datasets:
