@@ -29,7 +29,7 @@ Nicholas Kluge, et al. have fine-tuned TeenyTinyLlama models on the FaQUAD-NLI a
 
 - [nicholasKluge/TeenyTinyLlama-460m-HateBR](https://huggingface.co/nicholasKluge/TeenyTinyLlama-460m-HateBR)
 
-For more information, please refer to his article ["TeenyTinyLlama: open-source tiny language models trained in Brazilian Portuguese"](https://arxiv.org/abs/2401.16640).
+For more information, please refer to the article ["TeenyTinyLlama: open-source tiny language models trained in Brazilian Portuguese"](https://arxiv.org/abs/2401.16640).
 
 We've made several models, fine-tuned on this benchmark, available on Hugging Face Hub:
 
