@@ -641,6 +641,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
     # 🌎 Napolab Leaderboard
     
     Stay up to date with the latest advancements in Portuguese language models and their performance across carefully curated Portuguese language tasks.
+    
     [⭐ Star us on GitHub](https://github.com/ruanchaves/napolab)
     """)
     
@@ -1003,4 +1004,4 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
     )
 
 if __name__ == "__main__":
-    app.launch(share=True, server_name="0.0.0.0", server_port=7860) 
+    app.launch(server_name="0.0.0.0", server_port=7860) 
