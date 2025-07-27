@@ -731,9 +731,11 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                     dataset_checkboxes = []
                     for dataset_name in sorted(NAPOLAB_DATASETS.keys()):
                         display_name = NAPOLAB_DATASETS[dataset_name].get('name', dataset_name)
+                        # Default to selected only for ASSIN 2 STS, FaQuAD-NLI, and HateBR
+                        default_value = display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR']
                         checkbox = gr.Checkbox(
                             label=display_name,
-                            value=True  # Default to selected
+                            value=default_value
                         )
                         dataset_checkboxes.append((dataset_name, checkbox))
             
@@ -741,7 +743,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                 with gr.Row():
                     hide_incomplete_models = gr.Checkbox(
                         label="Hide models with zero scores in selected datasets",
-                        value=False
+                        value=True
                     )
                     
                     min_average_performance = gr.Slider(
@@ -805,9 +807,11 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                     analysis_dataset_checkboxes = []
                     for dataset_name in sorted(NAPOLAB_DATASETS.keys()):
                         display_name = NAPOLAB_DATASETS[dataset_name].get('name', dataset_name)
+                        # Default to selected only for ASSIN 2 STS, FaQuAD-NLI, and HateBR
+                        default_value = display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR']
                         checkbox = gr.Checkbox(
                             label=display_name,
-                            value=True
+                            value=default_value
                         )
                         analysis_dataset_checkboxes.append((dataset_name, checkbox))
             
@@ -816,7 +820,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                 with gr.Row():
                     hide_incomplete_models_analysis = gr.Checkbox(
                         label="Hide models with zero scores in selected datasets",
-                        value=False
+                        value=True
                     )
                     
                     min_average_performance_analysis = gr.Slider(
@@ -957,10 +961,10 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
     
     # Connect events
     # Load model analysis chart on app start
-    app.load(lambda: update_radar_chart(*([True] * len(analysis_dataset_checkboxes) + [False, 80, True, True, True, True, ""])), outputs=model_analysis_chart)
+    app.load(lambda: update_radar_chart(*([display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, ""])), outputs=model_analysis_chart)
     
     # Load benchmark table on app start
-    app.load(lambda: update_benchmark_table(*([True] * len(dataset_checkboxes) + [False, 80, True, True, True, True, ""])), outputs=benchmark_table)
+    app.load(lambda: update_benchmark_table(*([display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, ""])), outputs=benchmark_table)
     
     # Connect dataset checkboxes to update table
     for dataset_name, checkbox in dataset_checkboxes:
