@@ -83,6 +83,7 @@ def extract_data_from_json(json_file_path):
         # Extract model information
         model_name = config_general.get('model_name', '')
         model_private = config_general.get('model_private', False)
+        model_num_parameters = config_general.get('model_num_parameters', 0)
         
         # Extract results
         all_grouped = results.get('all_grouped', {})
@@ -98,6 +99,7 @@ def extract_data_from_json(json_file_path):
             'json_file': str(json_file_path),
             'model_name': model_name,
             'model_private': model_private,
+            'model_num_parameters': model_num_parameters,
             'assin2_rte': assin2_rte,
             'assin2_sts': assin2_sts,
             'faquad_nli': faquad_nli,
