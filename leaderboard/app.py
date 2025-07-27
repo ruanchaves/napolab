@@ -572,6 +572,26 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
     # Sort by average performance (descending)
     model_performances.sort(key=lambda x: x[2], reverse=True)
     
+    # Calculate dynamic range based on actual data
+    all_performance_values = []
+    for model_name, data, avg_performance in model_performances:
+        for dataset_name in dataset_names:
+            score = data['performances'].get(dataset_name, 0)
+            if score > 0:  # Only include non-zero scores
+                all_performance_values.append(score)
+    
+    # Set dynamic range with some padding
+    if all_performance_values:
+        min_score = min(all_performance_values)
+        max_score = max(all_performance_values)
+        # Add 5% padding below minimum and ensure minimum is not below 0.5
+        range_min = max(0.5, min_score - (max_score - min_score) * 0.05)
+        range_max = 1.0
+    else:
+        # Fallback to default range if no data
+        range_min = 0.6
+        range_max = 1.0
+    
     # Create radar chart
     fig = go.Figure()
     
@@ -612,6 +632,10 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
         for dataset_name in dataset_names:
             performance_values.append(data['performances'].get(dataset_name, 0))
         
+        # Close the polygon by adding the first value at the end
+        if performance_values:
+            performance_values.append(performance_values[0])
+        
         # Assign color and line style based on model index for better differentiation
         color = colors[i % len(colors)]
         line_style = line_styles[i % len(line_styles)]
@@ -619,14 +643,18 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
         # Show first two models by default, hide the rest
         visible = True if i < 2 else 'legendonly'
         
+        # Create theta values that close the polygon
+        theta_values = dataset_display_names + [dataset_display_names[0]] if dataset_display_names else []
+        
         fig.add_trace(go.Scatterpolar(
             r=performance_values,
-            theta=dataset_display_names,
-            fill='toself',
+            theta=theta_values,
+            fill=None,
             name=model_name,
             line_color=color,
             line_dash=line_style,
-            opacity=0.4,
+            line_width=3,
+            opacity=0.8,
             visible=visible,
             hovertemplate=(
                 "<b>%{fullData.name}</b><br>" +
@@ -643,9 +671,7 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
         polar=dict(
             radialaxis=dict(
                 visible=True,
-                range=[0.6, 1],
-                ticktext=['0.6', '0.7', '0.8', '0.9', '1.0'],
-                tickvals=[0.6, 0.7, 0.8, 0.9, 1.0],
+                range=[range_min, range_max],
                 gridcolor='rgba(0, 0, 0, 0.2)',
                 linecolor='rgba(0, 0, 0, 0.5)',
                 tickcolor='rgba(0, 0, 0, 0.7)',
