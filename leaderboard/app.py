@@ -24,14 +24,14 @@ def load_portuguese_leaderboard_data() -> pd.DataFrame:
         if os.path.exists(csv_path):
             df = pd.read_csv(csv_path)
             # Select only the relevant columns
-            relevant_columns = ['model_name', 'assin2_rte', 'assin2_sts', 'faquad_nli', 'hatebr_offensive']
+            relevant_columns = ['model_name', 'model_num_parameters', 'assin2_rte', 'assin2_sts', 'faquad_nli', 'hatebr_offensive']
             df = df[relevant_columns].copy()
             
             # Rename columns to match the existing format
             df = df.rename(columns={
                 'assin2_rte': 'ASSIN2 RTE',
                 'assin2_sts': 'ASSIN2 STS', 
-                'faquad_nli': 'FaQuAD-NLI',
+                'faquad_nli': 'FaQUaD-NLI',
                 'hatebr_offensive': 'HateBR'
             })
             
@@ -62,12 +62,15 @@ def load_external_models_data() -> pd.DataFrame:
                 'model': 'model_name',
                 'assin2_rte': 'ASSIN2 RTE',
                 'assin2_sts': 'ASSIN2 STS', 
-                'faquad_nli': 'FaQuAD-NLI',
+                'faquad_nli': 'FaQUaD-NLI',
                 'hatebr_offensive': 'HateBR'
             })
             
             # Add source information
             df['source'] = 'external_models'
+            
+            # Add model_num_parameters column with 0 for external models
+            df['model_num_parameters'] = 0
             
             print(f"Loaded {len(df)} external models")
             return df
@@ -84,7 +87,7 @@ PORTUGUESE_LEADERBOARD_DATA = load_portuguese_leaderboard_data()
 # Load external models data
 EXTERNAL_MODELS_DATA = load_external_models_data()
 
-def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_napolab_thesis: bool = True, show_teenytinyllama: bool = True, show_portuguese_leaderboard: bool = True, show_external_models: bool = True, hide_incomplete_models: bool = False, min_average_performance: float = 0.0, search_query: str = "") -> pd.DataFrame:
+def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_napolab_thesis: bool = True, show_teenytinyllama: bool = True, show_portuguese_leaderboard: bool = True, show_external_models: bool = True, hide_incomplete_models: bool = False, min_average_performance: float = 0.0, search_query: str = "", max_num_parameters: int = 0) -> pd.DataFrame:
     """Create a simplified benchmark table with one column per dataset."""
     # Get all dataset names
     dataset_names = sorted(NAPOLAB_DATASETS.keys())
@@ -120,14 +123,15 @@ def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_
                 model_data[model_name] = {
                     'dataset_scores': {},
                     'url': None,
-                    'source': 'portuguese_leaderboard'
+                    'source': 'portuguese_leaderboard',
+                    'num_parameters': row.get('model_num_parameters', 0)
                 }
             
             # Map Portuguese leaderboard columns to dataset names
             column_mapping = {
                 'ASSIN2 RTE': 'assin2_rte',
                 'ASSIN2 STS': 'assin2_sts',
-                'FaQuAD-NLI': 'faquad-nli',
+                'FaQUaD-NLI': 'faquad-nli',
                 'HateBR': 'hatebr'
             }
             
@@ -146,14 +150,15 @@ def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_
                 model_data[model_name] = {
                     'dataset_scores': {},
                     'url': row.get('link', ''),
-                    'source': 'external_models'
+                    'source': 'external_models',
+                    'num_parameters': row.get('model_num_parameters', 0)
                 }
             
             # Map external models columns to dataset names
             column_mapping = {
                 'ASSIN2 RTE': 'assin2_rte',
                 'ASSIN2 STS': 'assin2_sts',
-                'FaQuAD-NLI': 'faquad-nli',
+                'FaQUaD-NLI': 'faquad-nli',
                 'HateBR': 'hatebr'
             }
             
@@ -177,6 +182,9 @@ def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_
             model_metadata = MODEL_METADATA.get(model_name, {})
             source = model_metadata.get('source', 'unknown')
             model_data[model_name]['source'] = source
+            
+            # Add num_parameters for existing models (set to 0 as they don't have this info)
+            model_data[model_name]['num_parameters'] = 0
     
     # Create table data
     table_data = []
@@ -197,6 +205,12 @@ def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_
         # Hide models with unknown source (should not happen with proper data)
         if source == 'unknown':
             continue
+        
+        # Apply parameter filtering (only for Portuguese leaderboard models)
+        if max_num_parameters > 0 and source == 'portuguese_leaderboard':
+            num_parameters = data.get('num_parameters', 0)
+            if num_parameters > max_num_parameters:
+                continue
         
         # Create clickable link for model name
         if data['url']:
@@ -394,7 +408,7 @@ def cleanup_current_csv():
             print(f"Error deleting file {current_csv_file}: {e}")
 
 
-def create_model_performance_radar(selected_datasets: List[str] = None, show_napolab_thesis: bool = True, show_teenytinyllama: bool = True, show_portuguese_leaderboard: bool = True, show_external_models: bool = True, hide_incomplete_models: bool = False, min_average_performance: float = 0.0, search_query: str = "") -> go.Figure:
+def create_model_performance_radar(selected_datasets: List[str] = None, show_napolab_thesis: bool = True, show_teenytinyllama: bool = True, show_portuguese_leaderboard: bool = True, show_external_models: bool = True, hide_incomplete_models: bool = False, min_average_performance: float = 0.0, search_query: str = "", max_num_parameters: int = 0) -> go.Figure:
     """Create a radar chart showing model performance across all datasets."""
     # Use selected datasets if provided, otherwise use all datasets
     if selected_datasets is None:
@@ -431,14 +445,15 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
                 model_data[model_name] = {
                     'performances': {},
                     'architecture': 'Unknown',
-                    'source': 'portuguese_leaderboard'
+                    'source': 'portuguese_leaderboard',
+                    'num_parameters': row.get('model_num_parameters', 0)
                 }
             
             # Map Portuguese leaderboard columns to dataset names
             column_mapping = {
                 'ASSIN2 RTE': 'assin2_rte',
                 'ASSIN2 STS': 'assin2_sts',
-                'FaQuAD-NLI': 'faquad-nli',
+                'FaQUaD-NLI': 'faquad-nli',
                 'HateBR': 'hatebr'
             }
             
@@ -457,14 +472,15 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
                 model_data[model_name] = {
                     'performances': {},
                     'architecture': 'Unknown',
-                    'source': 'external_models'
+                    'source': 'external_models',
+                    'num_parameters': row.get('model_num_parameters', 0)
                 }
             
             # Map external models columns to dataset names
             column_mapping = {
                 'ASSIN2 RTE': 'assin2_rte',
                 'ASSIN2 STS': 'assin2_sts',
-                'FaQuAD-NLI': 'faquad-nli',
+                'FaQUaD-NLI': 'faquad-nli',
                 'HateBR': 'hatebr'
             }
             
@@ -488,6 +504,9 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
             model_metadata = MODEL_METADATA.get(model_name, {})
             source = model_metadata.get('source', 'unknown')
             model_data[model_name]['source'] = source
+            
+            # Add num_parameters for existing models (set to 0 as they don't have this info)
+            model_data[model_name]['num_parameters'] = 0
     
     # Apply source filtering
     filtered_model_data = {}
@@ -506,6 +525,12 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
         # Hide models with unknown source (should not happen with proper data)
         if source == 'unknown':
             continue
+        
+        # Apply parameter filtering (only for Portuguese leaderboard models)
+        if max_num_parameters > 0 and source == 'portuguese_leaderboard':
+            num_parameters = data.get('num_parameters', 0)
+            if num_parameters > max_num_parameters:
+                continue
         
         filtered_model_data[model_name] = data
     
@@ -731,8 +756,8 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                     dataset_checkboxes = []
                     for dataset_name in sorted(NAPOLAB_DATASETS.keys()):
                         display_name = NAPOLAB_DATASETS[dataset_name].get('name', dataset_name)
-                        # Default to selected only for ASSIN 2 STS, FaQuAD-NLI, and HateBR
-                        default_value = display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR']
+                        # Default to selected only for ASSIN 2 STS, FaQUaD-NLI, and HateBR
+                        default_value = display_name in ['ASSIN 2 STS', 'FaQUaD-NLI', 'HateBR']
                         checkbox = gr.Checkbox(
                             label=display_name,
                             value=default_value
@@ -774,6 +799,22 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                         value=True
                     )
             
+            # Calculate max parameters for slider
+            max_params = 0
+            if not PORTUGUESE_LEADERBOARD_DATA.empty:
+                max_params = int(PORTUGUESE_LEADERBOARD_DATA['model_num_parameters'].max())
+            
+            with gr.Accordion("Filter by Model Size: (Click to expand)", open=False):
+                with gr.Row():
+                    max_num_parameters = gr.Slider(
+                        minimum=0,
+                        maximum=max_params,
+                        value=0,
+                        step=1,
+                        label="Maximum Number of Parameters",
+                        info="This slider is applicable only to Open PT LLM Leaderboard models. For other models, it will have no effect."
+                    )
+            
             # Search bar for filtering models
             search_query = gr.Textbox(
                 label="Search models by name (supports regex)",
@@ -807,8 +848,8 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                     analysis_dataset_checkboxes = []
                     for dataset_name in sorted(NAPOLAB_DATASETS.keys()):
                         display_name = NAPOLAB_DATASETS[dataset_name].get('name', dataset_name)
-                        # Default to selected only for ASSIN 2 STS, FaQuAD-NLI, and HateBR
-                        default_value = display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR']
+                        # Default to selected only for ASSIN 2 STS, FaQUaD-NLI, and HateBR
+                        default_value = display_name in ['ASSIN 2 STS', 'FaQUaD-NLI', 'HateBR']
                         checkbox = gr.Checkbox(
                             label=display_name,
                             value=default_value
@@ -853,6 +894,18 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                         value=True
                     )
             
+            # Parameter slider for Model Analysis tab
+            with gr.Accordion("Filter by Model Size: (Click to expand)", open=False):
+                with gr.Row():
+                    max_num_parameters_analysis = gr.Slider(
+                        minimum=0,
+                        maximum=max_params,
+                        value=0,
+                        step=1,
+                        label="Maximum Number of Parameters",
+                        info="This slider is applicable only to Open PT LLM Leaderboard models. For other models, it will have no effect."
+                    )
+
             # Search bar for filtering models in radar chart
             search_query_analysis = gr.Textbox(
                 label="Search models by name (supports regex)",
@@ -862,6 +915,9 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
             )
             
             model_analysis_chart = gr.Plot(label="Model Performance Radar Chart")
+            
+            # Add scatter plot below radar chart
+            model_scatter_plot = gr.Plot(label="Model Performance vs Number of Parameters")
             
             gr.Markdown("""
             **How to interact with the chart:**
@@ -918,6 +974,272 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
 
             """)
     
+    def create_model_performance_scatter(selected_datasets: List[str] = None, show_napolab_thesis: bool = True, show_teenytinyllama: bool = True, show_portuguese_leaderboard: bool = True, show_external_models: bool = True, hide_incomplete_models: bool = False, min_average_performance: float = 0.0, search_query: str = "", max_num_parameters: int = 0) -> go.Figure:
+        """Create a scatter plot showing model performance vs number of parameters."""
+        # Use selected datasets if provided, otherwise use all datasets
+        if selected_datasets is None:
+            selected_datasets = list(NAPOLAB_DATASETS.keys())
+        
+        # Collect data for each model
+        model_data = {}
+        
+        # Process existing benchmark results
+        for dataset_name, models in SAMPLE_BENCHMARK_RESULTS.items():
+            if dataset_name in selected_datasets:
+                for model_name, metrics in models.items():
+                    if model_name not in model_data:
+                        # Get actual source from MODEL_METADATA
+                        model_metadata = MODEL_METADATA.get(model_name, {})
+                        actual_source = model_metadata.get('source', 'unknown')
+                        
+                        model_data[model_name] = {
+                            'performances': {},
+                            'architecture': model_metadata.get('architecture', 'Unknown'),
+                            'source': actual_source,
+                            'num_parameters': 0
+                        }
+                    
+                    # Calculate average performance for this dataset
+                    avg_performance = np.mean(list(metrics.values()))
+                    model_data[model_name]['performances'][dataset_name] = avg_performance
+        
+        # Process Portuguese leaderboard data
+        if show_portuguese_leaderboard and not PORTUGUESE_LEADERBOARD_DATA.empty:
+            for _, row in PORTUGUESE_LEADERBOARD_DATA.iterrows():
+                model_name = row['model_name']
+                
+                if model_name not in model_data:
+                    model_data[model_name] = {
+                        'performances': {},
+                        'architecture': 'Unknown',
+                        'source': 'portuguese_leaderboard',
+                        'num_parameters': row.get('model_num_parameters', 0)
+                    }
+                
+                # Map Portuguese leaderboard columns to dataset names
+                column_mapping = {
+                    'ASSIN2 RTE': 'assin2_rte',
+                    'ASSIN2 STS': 'assin2_sts',
+                    'FaQUaD-NLI': 'faquad-nli',
+                    'HateBR': 'hatebr'
+                }
+                
+                for display_name, dataset_name in column_mapping.items():
+                    if dataset_name in selected_datasets:
+                        score = row[display_name]
+                        if pd.notna(score) and score > 0:
+                            model_data[model_name]['performances'][dataset_name] = score
+        
+        # Process external models data
+        if show_external_models and not EXTERNAL_MODELS_DATA.empty:
+            for _, row in EXTERNAL_MODELS_DATA.iterrows():
+                model_name = row['model_name']
+                
+                if model_name not in model_data:
+                    model_data[model_name] = {
+                        'performances': {},
+                        'architecture': 'Unknown',
+                        'source': 'external_models',
+                        'num_parameters': row.get('model_num_parameters', 0)
+                    }
+                
+                # Map external models columns to dataset names
+                column_mapping = {
+                    'ASSIN2 RTE': 'assin2_rte',
+                    'ASSIN2 STS': 'assin2_sts',
+                    'FaQUaD-NLI': 'faquad-nli',
+                    'HateBR': 'hatebr'
+                }
+                
+                for display_name, dataset_name in column_mapping.items():
+                    if dataset_name in selected_datasets:
+                        score = row[display_name]
+                        if pd.notna(score) and score > 0:
+                            model_data[model_name]['performances'][dataset_name] = score
+        
+        # Apply source filtering
+        filtered_model_data = {}
+        for model_name, data in model_data.items():
+            source = data.get('source', 'existing')
+            
+            # Apply show filters - only show models from sources that are checked
+            if source == 'napolab_thesis' and not show_napolab_thesis:
+                continue
+            if source == 'teenytinyllama_paper' and not show_teenytinyllama:
+                continue
+            if source == 'portuguese_leaderboard' and not show_portuguese_leaderboard:
+                continue
+            if source == 'external_models' and not show_external_models:
+                continue
+            # Hide models with unknown source (should not happen with proper data)
+            if source == 'unknown':
+                continue
+            
+            # Apply parameter filtering (only for Portuguese leaderboard models)
+            if max_num_parameters > 0 and source == 'portuguese_leaderboard':
+                num_parameters = data.get('num_parameters', 0)
+                if num_parameters > max_num_parameters:
+                    continue
+            
+            filtered_model_data[model_name] = data
+        
+        # Apply incomplete model filtering
+        if hide_incomplete_models and selected_datasets:
+            final_filtered_data = {}
+            for model_name, data in filtered_model_data.items():
+                has_all_scores = True
+                for dataset_name in selected_datasets:
+                    if data['performances'].get(dataset_name, 0) == 0:
+                        has_all_scores = False
+                        break
+                if has_all_scores:
+                    final_filtered_data[model_name] = data
+            filtered_model_data = final_filtered_data
+        
+        # Apply minimum average performance filtering
+        if min_average_performance > 0 and selected_datasets:
+            final_filtered_data = {}
+            for model_name, data in filtered_model_data.items():
+                # Calculate average performance for selected datasets
+                scores = []
+                for dataset_name in selected_datasets:
+                    score = data['performances'].get(dataset_name, 0)
+                    if score > 0:  # Only include non-zero scores
+                        scores.append(score)
+                
+                if scores:
+                    avg_performance = np.mean(scores)
+                    if avg_performance >= min_average_performance:
+                        final_filtered_data[model_name] = data
+            filtered_model_data = final_filtered_data
+        
+        # Apply search query filtering
+        if search_query:
+            final_filtered_data = {}
+            try:
+                # Use regex pattern matching
+                import re
+                pattern = re.compile(search_query, re.IGNORECASE)
+                for model_name, data in filtered_model_data.items():
+                    if pattern.search(model_name):
+                        final_filtered_data[model_name] = data
+            except re.error:
+                # Fallback to simple string matching if regex is invalid
+                for model_name, data in filtered_model_data.items():
+                    if search_query.lower() in model_name.lower():
+                        final_filtered_data[model_name] = data
+            filtered_model_data = final_filtered_data
+        
+        # Prepare data for scatter plot
+        scatter_data = []
+        for model_name, data in filtered_model_data.items():
+            # Calculate average performance for selected datasets
+            scores = []
+            for dataset_name in selected_datasets:
+                score = data['performances'].get(dataset_name, 0)
+                if score > 0:  # Only include non-zero scores
+                    scores.append(score)
+            
+            if scores:
+                avg_performance = np.mean(scores)
+                num_parameters = data.get('num_parameters', 0)
+                source = data.get('source', 'unknown')
+                
+                scatter_data.append({
+                    'model_name': model_name,
+                    'avg_performance': avg_performance,
+                    'num_parameters': num_parameters,
+                    'source': source
+                })
+        
+        if not scatter_data:
+            # Create empty figure if no data
+            fig = go.Figure()
+            fig.add_annotation(
+                text="No data available for the selected filters",
+                xref="paper", yref="paper",
+                x=0.5, y=0.5, showarrow=False,
+                font=dict(size=16)
+            )
+            fig.update_layout(
+                title="Model Performance vs Number of Parameters",
+                xaxis_title="Number of Parameters",
+                yaxis_title="Average Performance Score",
+                height=500
+            )
+            return fig
+        
+        # Create scatter plot
+        df_scatter = pd.DataFrame(scatter_data)
+        
+        # Create color mapping for sources
+        color_map = {
+            'portuguese_leaderboard': '#1f77b4',
+            'external_models': '#ff7f0e',
+            'napolab_thesis': '#2ca02c',
+            'teenytinyllama_paper': '#d62728',
+            'unknown': '#9467bd'
+        }
+        
+        # Create display name mapping for sources
+        display_name_map = {
+            'portuguese_leaderboard': 'Open PT LLM Leaderboard',
+            'external_models': 'Proprietary Models',
+            'napolab_thesis': 'Napolab Thesis',
+            'teenytinyllama_paper': 'TeenyTinyLlama Paper',
+            'unknown': 'Unknown Source'
+        }
+        
+        fig = go.Figure()
+        
+        for source in df_scatter['source'].unique():
+            source_data = df_scatter[df_scatter['source'] == source]
+            color = color_map.get(source, '#7f7f7f')
+            display_name = display_name_map.get(source, source.replace('_', ' ').title())
+            
+            fig.add_trace(go.Scatter(
+                x=source_data['num_parameters'],
+                y=source_data['avg_performance'],
+                mode='markers',
+                name=display_name,
+                marker=dict(
+                    color=color,
+                    size=8,
+                    opacity=0.7
+                ),
+                text=source_data['model_name'],
+                hovertemplate=(
+                    "<b>%{text}</b><br>" +
+                    "Average Performance: %{y:.3f}<br>" +
+                    "Number of Parameters: %{x:,}<br>" +
+                    "Source: " + display_name + "<br>" +
+                    "<extra></extra>"
+                )
+            ))
+        
+        fig.update_layout(
+            title="Model Performance vs Number of Parameters",
+            xaxis_title="Number of Parameters",
+            yaxis_title="Average Performance Score",
+            height=500,
+            showlegend=True,
+            plot_bgcolor='rgba(255, 255, 255, 0)',
+            paper_bgcolor='rgba(255, 255, 255, 0)',
+            legend=dict(
+                yanchor="top",
+                y=-0.15,
+                xanchor="center",
+                x=0.5,
+                bgcolor='rgba(255, 255, 255, 0.95)',
+                bordercolor='rgba(0, 0, 0, 0.2)',
+                borderwidth=1,
+                orientation="h"
+            ),
+            margin=dict(l=50, r=50, t=100, b=100)
+        )
+        
+        return fig
+    
     # Event handlers
     def update_radar_chart(*args):
         # Extract arguments for radar chart
@@ -929,6 +1251,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
         show_portuguese_leaderboard = args[len(analysis_dataset_checkboxes) + 4]
         show_external_models = args[len(analysis_dataset_checkboxes) + 5]
         search_query = args[len(analysis_dataset_checkboxes) + 6]
+        max_num_parameters = args[len(analysis_dataset_checkboxes) + 7]
         
         # Convert dataset selections to list of selected dataset names
         selected_datasets = []
@@ -936,7 +1259,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
             if dataset_values[i]:
                 selected_datasets.append(dataset_name)
         
-        return create_model_performance_radar(selected_datasets, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, hide_incomplete_models, min_average_performance, search_query)
+        return create_model_performance_radar(selected_datasets, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, hide_incomplete_models, min_average_performance, search_query, max_num_parameters)
     
     def update_benchmark_table(*args):
         # Extract arguments
@@ -948,6 +1271,7 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
         show_portuguese_leaderboard = args[len(dataset_checkboxes) + 4]
         show_external_models = args[len(dataset_checkboxes) + 5]
         search_query = args[len(dataset_checkboxes) + 6]
+        max_num_parameters = args[len(dataset_checkboxes) + 7]
         
         # Convert dataset selections to list of selected dataset names
         selected_datasets = []
@@ -955,65 +1279,85 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
             if dataset_values[i]:
                 selected_datasets.append(dataset_name)
         
-        df = create_simplified_benchmark_table(selected_datasets, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, hide_incomplete_models, min_average_performance, search_query)
+        df = create_simplified_benchmark_table(selected_datasets, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, hide_incomplete_models, min_average_performance, search_query, max_num_parameters)
         
         return df
     
-    # Connect events
-    # Load model analysis chart on app start
-    app.load(lambda: update_radar_chart(*([display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, ""])), outputs=model_analysis_chart)
-    
-    # Load benchmark table on app start
-    app.load(lambda: update_benchmark_table(*([display_name in ['ASSIN 2 STS', 'FaQuAD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, ""])), outputs=benchmark_table)
+    def update_scatter_plot(*args):
+        # Extract arguments for scatter plot
+        dataset_values = args[:len(analysis_dataset_checkboxes)]
+        hide_incomplete_models = args[len(analysis_dataset_checkboxes)]
+        min_average_performance = args[len(analysis_dataset_checkboxes) + 1] / 100.0  # Convert percentage to decimal
+        show_napolab_thesis = args[len(analysis_dataset_checkboxes) + 2]
+        show_teenytinyllama = args[len(analysis_dataset_checkboxes) + 3]
+        show_portuguese_leaderboard = args[len(analysis_dataset_checkboxes) + 4]
+        show_external_models = args[len(analysis_dataset_checkboxes) + 5]
+        search_query = args[len(analysis_dataset_checkboxes) + 6]
+        max_num_parameters = args[len(analysis_dataset_checkboxes) + 7]
+        
+        # Convert dataset selections to list of selected dataset names
+        selected_datasets = []
+        for i, (dataset_name, _) in enumerate(analysis_dataset_checkboxes):
+            if dataset_values[i]:
+                selected_datasets.append(dataset_name)
+        
+        return create_model_performance_scatter(selected_datasets, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, hide_incomplete_models, min_average_performance, search_query, max_num_parameters)
     
     # Connect dataset checkboxes to update table
     for dataset_name, checkbox in dataset_checkboxes:
         checkbox.change(
             update_benchmark_table,
-            inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+            inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
             outputs=benchmark_table
         )
     
     hide_incomplete_models.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
     min_average_performance.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
     show_napolab_thesis.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
     show_teenytinyllama.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
 
     show_portuguese_leaderboard.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
     show_external_models.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
     # Connect search query to update table
     search_query.change(
         update_benchmark_table,
-        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query],
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
+        outputs=benchmark_table
+    )
+    
+    # Connect max_num_parameters to update table
+    max_num_parameters.change(
+        update_benchmark_table,
+        inputs=[cb for _, cb in dataset_checkboxes] + [hide_incomplete_models, min_average_performance, show_napolab_thesis, show_teenytinyllama, show_portuguese_leaderboard, show_external_models, search_query, max_num_parameters],
         outputs=benchmark_table
     )
     
@@ -1036,52 +1380,125 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
     for dataset_name, checkbox in analysis_dataset_checkboxes:
         checkbox.change(
             update_radar_chart,
-            inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+            inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
             outputs=model_analysis_chart
         )
     
     hide_incomplete_models_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
     
     min_average_performance_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
     
     show_napolab_thesis_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
     
     show_teenytinyllama_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
 
     show_portuguese_leaderboard_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
     
     show_external_models_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
     
     # Connect search query to update radar chart
     search_query_analysis.change(
         update_radar_chart,
-        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis],
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
         outputs=model_analysis_chart
     )
+    
+    # Connect max_num_parameters_analysis to update radar chart
+    max_num_parameters_analysis.change(
+        update_radar_chart,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_analysis_chart
+    )
+    
+    # Connect all analysis controls to update scatter plot
+    for dataset_name, checkbox in analysis_dataset_checkboxes:
+        checkbox.change(
+            update_scatter_plot,
+            inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+            outputs=model_scatter_plot
+        )
+    
+    hide_incomplete_models_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    min_average_performance_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    show_napolab_thesis_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    show_teenytinyllama_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+
+    show_portuguese_leaderboard_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    show_external_models_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    search_query_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    max_num_parameters_analysis.change(
+        update_scatter_plot,
+        inputs=[cb for _, cb in analysis_dataset_checkboxes] + [hide_incomplete_models_analysis, min_average_performance_analysis, show_napolab_thesis_analysis, show_teenytinyllama_analysis, show_portuguese_leaderboard_analysis, show_external_models_analysis, search_query_analysis, max_num_parameters_analysis],
+        outputs=model_scatter_plot
+    )
+    
+    # Connect events
+    # Load model analysis chart on app start
+    app.load(lambda: update_radar_chart(*([display_name in ['ASSIN 2 STS', 'FaQUaD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, "", 0])), outputs=model_analysis_chart)
+    
+    # Load scatter plot on app start
+    app.load(lambda: update_scatter_plot(*([display_name in ['ASSIN 2 STS', 'FaQUaD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, "", 0])), outputs=model_scatter_plot)
+    
+    # Load benchmark table on app start
+    app.load(lambda: update_benchmark_table(*([display_name in ['ASSIN 2 STS', 'FaQUaD-NLI', 'HateBR'] for _, display_name in [(name, NAPOLAB_DATASETS[name].get('name', name)) for name in sorted(NAPOLAB_DATASETS.keys())]] + [True, 80, True, True, True, True, "", 0])), outputs=benchmark_table)
 
 if __name__ == "__main__":
     app.launch(server_name="0.0.0.0", server_port=7860) 
