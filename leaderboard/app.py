@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import json
 import os
+import re
 from typing import Dict, List, Optional, Tuple
 
 # Import data loader
@@ -284,7 +285,12 @@ def create_simplified_benchmark_table(selected_datasets: List[str] = None, show_
         # Extract model names from markdown links for searching
         df_filtered = df.copy()
         df_filtered['model_name_clean'] = df_filtered['Model'].str.replace(r'\[([^\]]+)\]\([^)]+\)', r'\1', regex=True)
-        df_filtered = df_filtered[df_filtered['model_name_clean'].str.contains(search_query, case=False, na=False)]
+        try:
+            # Use regex pattern matching
+            df_filtered = df_filtered[df_filtered['model_name_clean'].str.contains(search_query, case=False, na=False, regex=True)]
+        except re.error:
+            # Fallback to simple string matching if regex is invalid
+            df_filtered = df_filtered[df_filtered['model_name_clean'].str.contains(search_query, case=False, na=False)]
         df = df_filtered.drop('model_name_clean', axis=1)
     
     # Sort by Average (descending)
@@ -536,9 +542,18 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
     # Apply search query filtering
     if search_query:
         final_filtered_data = {}
-        for model_name, data in filtered_model_data.items():
-            if search_query.lower() in model_name.lower():
-                final_filtered_data[model_name] = data
+        try:
+            # Use regex pattern matching
+            import re
+            pattern = re.compile(search_query, re.IGNORECASE)
+            for model_name, data in filtered_model_data.items():
+                if pattern.search(model_name):
+                    final_filtered_data[model_name] = data
+        except re.error:
+            # Fallback to simple string matching if regex is invalid
+            for model_name, data in filtered_model_data.items():
+                if search_query.lower() in model_name.lower():
+                    final_filtered_data[model_name] = data
         filtered_model_data = final_filtered_data
     
     # Sort models by average performance (descending)
@@ -700,9 +715,10 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
             
             # Search bar for filtering models
             search_query = gr.Textbox(
-                label="Search models by name",
-                placeholder="Enter model name to filter...",
-                value=""
+                label="Search models by name (supports regex)",
+                placeholder="Enter model name or regex pattern to filter...",
+                value="",
+                info="Supports regular expressions. Examples: 'bert.*large', 'gemini|gpt', 'mdeberta.*', '^bert'"
             )
             
             benchmark_table = gr.DataFrame(
@@ -776,10 +792,19 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
             
             # Search bar for filtering models in radar chart
             search_query_analysis = gr.Textbox(
-                label="Search models by name",
-                placeholder="Enter model name to filter...",
-                value=""
+                label="Search models by name (supports regex)",
+                placeholder="Enter model name or regex pattern to filter...",
+                value="",
+                info="Supports regular expressions. Examples: 'bert.*large', 'mdeberta.*', '^bert'"
             )
+            
+            gr.Markdown("""
+            **🔍 Search Tips:**
+            - **Simple search**: Type part of a model name (e.g., "bert", "mdeberta")
+            - **Regex patterns**: Use `.*` for wildcards, `^` for start of name, `$` for end
+            - **Multiple models**: Use `(gemini|bert)` to find both Gemini and BERT models
+            - **Examples**: `bert.*large`, `mdeberta.*`, `^bert`, `.*base$`, `(gemini|bert|mdeberta)`
+            """)
             
             model_analysis_chart = gr.Plot(label="Model Performance Radar Chart")
             
