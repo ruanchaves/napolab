@@ -262,7 +262,9 @@ def load_napolab_benchmark(include_translations=True):
     datasets = {}
     # This will load all datasets that make up the Napolab benchmark in the Portuguese language.
     for dataset_name in loader.DATASET_NAMES:
-        if dataset_name in ["assin", "assin2"]:
+        if dataset_name in ["assin"]:
+            continue
+        elif dataset_name in ["assin2"]:
             datasets[f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte",
             hf_kwargs={"trust_remote_code": True})
             datasets[f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts",
