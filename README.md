@@ -2,6 +2,15 @@
 
 The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go-to collection of Portuguese datasets for the evaluation of Large Language Models.
 
+## Napolab Leaderboard
+
+Browse the **[Napolab Leaderboard](https://huggingface.co/spaces/ruanchaves/napolab)** and stay up to date with the latest advancements in Portuguese language models.
+
+<div align="center">
+  <img src="benchmark.PNG" width="45%" alt="Napolab Leaderboard Interface">
+  <img src="benchmark_radio.png" width="45%" alt="Model Performance Analysis">
+</div>
+
 ## 📊 Napolab for Large Language Models (LLMs)
 
 A format of Napolab specifically designed for researchers experimenting with Large Language Models (LLMs) is now available. This format includes two main fields:
@@ -10,12 +19,6 @@ A format of Napolab specifically designed for researchers experimenting with Lar
 * **Answer**: The expected classification output label from the LLM, which is always a number between 0 and 5.
 
 The dataset in this format can be accessed at [https://huggingface.co/datasets/ruanchaves/napolab](https://huggingface.co/datasets/ruanchaves/napolab). If you’ve used Napolab for LLM evaluations, please share your findings with us!
-
-## Leaderboards 
-
-The [Open PT LLM Leaderboard](https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard) incorporates datasets from Napolab. 
-
-The Master's thesis [Lessons Learned from the Evaluation of Portuguese Language Models](https://www.um.edu.mt/library/oar/handle/123456789/120557) features an extensive evaluation of Transformer models on Napolab.
 
 ## 🤖 Models
 
