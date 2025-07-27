@@ -1,0 +1,422 @@
+# Napolab Leaderboard Data Configuration
+# This file contains all datasets and benchmark results for the Gradio app
+#
+# Data Source: "Lessons learned from the evaluation of Portuguese language models" 
+# by Ruan Chaves Rodrigues (2023) - Master's dissertation, University of Malta
+# Available at: https://www.um.edu.mt/library/oar/handle/123456789/120557
+
+# Data Sources
+sources:
+  napolab_thesis:
+    name: "Napolab Thesis"
+    description: "Lessons learned from the evaluation of Portuguese language models"
+    author: "Ruan Chaves Rodrigues"
+    year: 2023
+    url: "https://www.um.edu.mt/library/oar/handle/123456789/120557"
+    institution: "University of Malta"
+    
+  open_pt_llm_leaderboard:
+    name: "Open PT LLM Leaderboard"
+    description: "Large Language Models on Portuguese Benchmarks"
+    author: "Eduardo Garcia"
+    year: 2025
+    url: "https://huggingface.co/spaces/eduagarcia/open_pt_llm_leaderboard"
+    platform: "Hugging Face Spaces"
+    
+  teenytinyllama_paper:
+    name: "TeenyTinyLlama Paper"
+    description: "TeenyTinyLlama: Open-source tiny language models trained in Brazilian Portuguese"
+    authors: ["Corrêa, Nicholas Kluge", "Falk, Sophia", "Fatimah, Shiza", "Sen, Aniket", "De Oliveira, Nythamar"]
+    year: 2024
+    journal: "Machine Learning with Applications"
+    doi: "10.1016/j.mlwa.2024.100558"
+
+# Dataset Information
+datasets:
+  assin_rte:
+    name: "ASSIN RTE"
+    description: "Avaliação de Similaridade Semântica e Inferência Textual - RTE"
+    tasks: ["RTE"]
+    url: "https://huggingface.co/datasets/assin"
+    
+  assin_sts:
+    name: "ASSIN STS"
+    description: "Avaliação de Similaridade Semântica e Inferência Textual - STS"
+    tasks: ["STS"]
+    url: "https://huggingface.co/datasets/assin"
+    
+  assin2_rte:
+    name: "ASSIN 2 RTE"
+    description: "Avaliação de Similaridade Semântica e Inferência Textual (v2) - RTE"
+    tasks: ["RTE"]
+    url: "https://huggingface.co/datasets/assin2"
+    
+  assin2_sts:
+    name: "ASSIN 2 STS"
+    description: "Avaliação de Similaridade Semântica e Inferência Textual (v2) - STS"
+    tasks: ["STS"]
+    url: "https://huggingface.co/datasets/assin2"
+    
+  faquad-nli:
+    name: "FaQUaD-NLI"
+    description: "Factual Question Answering and Natural Language Inference"
+    tasks: ["NLI"]
+    url: "https://huggingface.co/datasets/ruanchaves/faquad-nli"
+    
+  hatebr:
+    name: "HateBR"
+    description: "Hate Speech Detection in Brazilian Portuguese"
+    tasks: ["Classification"]
+    url: "https://huggingface.co/datasets/ruanchaves/hatebr"
+    
+  porsimplessent:
+    name: "PorSimplesSent"
+    description: "Portuguese Simple Sentences Sentiment Analysis"
+    tasks: ["Sentiment Analysis"]
+    url: "https://huggingface.co/datasets/ruanchaves/porsimplessent"
+    
+  reli-sa:
+    name: "Reli-SA"
+    description: "Religious Sentiment Analysis"
+    tasks: ["Sentiment Analysis"]
+    url: "https://huggingface.co/datasets/ruanchaves/reli-sa"
+
+# Benchmark Results
+benchmark_results:
+  assin_rte:
+    albertina-pt-pt:
+      accuracy: 0.887
+    albertina-pt-br:
+      accuracy: 0.844
+    deberta-v2-large:
+      accuracy: 0.864
+    xlm-roberta-large:
+      accuracy: 0.874
+    mdeberta-v3-base:
+      accuracy: 0.863
+    bertimbau-large:
+      accuracy: 0.838
+    bert-large:
+      accuracy: 0.802
+    bertimbau-base:
+      accuracy: 0.828
+    bert-multilingual-base:
+      accuracy: 0.815
+    xlm-roberta-base:
+      accuracy: 0.822
+    bertinho:
+      accuracy: 0.786
+    ixaes:
+      accuracy: 0.782
+      
+  assin_sts:
+    albertina-pt-pt:
+      accuracy: 0.874
+    albertina-pt-br:
+      accuracy: 0.883
+    deberta-v2-large:
+      accuracy: 0.861
+    xlm-roberta-large:
+      accuracy: 0.863
+    mdeberta-v3-base:
+      accuracy: 0.855
+    bertimbau-large:
+      accuracy: 0.826
+    bert-large:
+      accuracy: 0.822
+    bertimbau-base:
+      accuracy: 0.844
+    bert-multilingual-base:
+      accuracy: 0.820
+    xlm-roberta-base:
+      accuracy: 0.812
+    bertinho:
+      accuracy: 0.791
+    ixaes:
+      accuracy: 0.817
+      
+  assin2_rte:
+    albertina-pt-pt:
+      accuracy: 0.910
+    albertina-pt-br:
+      accuracy: 0.916
+    deberta-v2-large:
+      accuracy: 0.911
+    xlm-roberta-large:
+      accuracy: 0.910
+    mdeberta-v3-base:
+      accuracy: 0.904
+    bertimbau-large:
+      accuracy: 0.897
+    bert-large:
+      accuracy: 0.892
+    bertimbau-base:
+      accuracy: 0.884
+    bert-multilingual-base:
+      accuracy: 0.877
+    xlm-roberta-base:
+      accuracy: 0.875
+    bertinho:
+      accuracy: 0.855
+    ixaes:
+      accuracy: 0.879
+    ttl-460m:
+      accuracy: 0.8643
+    ttl-160m:
+      accuracy: 0.8578
+      
+  assin2_sts:
+    deberta-v2-large:
+      accuracy: 0.724
+    mdeberta-v3-base:
+      accuracy: 0.847
+    bertimbau-large:
+      accuracy: 0.855
+    bert-large:
+      accuracy: 0.792
+    bertimbau-base:
+      accuracy: 0.840
+    bert-multilingual-base:
+      accuracy: 0.827
+    xlm-roberta-base:
+      accuracy: 0.847
+    bertinho:
+      accuracy: 0.802
+    ixaes:
+      accuracy: 0.822
+      
+  faquad-nli:
+    mdeberta-v3-base:
+      accuracy: 0.889
+    bertimbau-large:
+      accuracy: 0.900
+    bert-large:
+      accuracy: 0.838
+    bertimbau-base:
+      accuracy: 0.897
+    bert-multilingual-base:
+      accuracy: 0.865
+    xlm-roberta-base:
+      accuracy: 0.898
+    bertinho:
+      accuracy: 0.866
+    ixaes:
+      accuracy: 0.860
+    ttl-460m:
+      accuracy: 0.9118
+    ttl-160m:
+      accuracy: 0.9000
+      
+  hatebr:
+    mdeberta-v3-base:
+      accuracy: 0.911
+    bertimbau-large:
+      accuracy: 0.919
+    bert-large:
+      accuracy: 0.838
+    bertimbau-base:
+      accuracy: 0.920
+    bert-multilingual-base:
+      accuracy: 0.871
+    xlm-roberta-base:
+      accuracy: 0.920
+    bertinho:
+      accuracy: 0.879
+    ixaes:
+      accuracy: 0.872
+    ttl-460m:
+      accuracy: 0.9228
+    ttl-160m:
+      accuracy: 0.9071
+      
+  porsimplessent:
+    mdeberta-v3-base:
+      accuracy: 0.953
+    bertimbau-large:
+      accuracy: 0.919
+    bert-large:
+      accuracy: 0.907
+    bertimbau-base:
+      accuracy: 0.920
+    bert-multilingual-base:
+      accuracy: 0.933
+    xlm-roberta-base:
+      accuracy: 0.920
+    bertinho:
+      accuracy: 0.900
+    ixaes:
+      accuracy: 0.899
+      
+  reli-sa:
+    mdeberta-v3-base:
+      accuracy: 0.719
+    bertimbau-large:
+      accuracy: 0.745
+    bert-large:
+      accuracy: 0.629
+    bertimbau-base:
+      accuracy: 0.713
+    bert-multilingual-base:
+      accuracy: 0.642
+    xlm-roberta-base:
+      accuracy: 0.680
+    bertinho:
+      accuracy: 0.681
+    ixaes:
+      accuracy: 0.637
+
+# Model Metadata
+model_metadata:
+  albertina-pt-pt:
+    parameters: 125000000
+    architecture: "Albertina PT:PT"
+    base_model: "PORTULAN/albertina-ptpt"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/PORTULAN/albertina-ptpt"
+    source: "napolab_thesis"
+    
+  albertina-pt-br:
+    parameters: 125000000
+    architecture: "Albertina PT:BR"
+    base_model: "PORTULAN/albertina-ptbr"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/PORTULAN/albertina-ptbr"
+    source: "napolab_thesis"
+    
+  deberta-v2-large:
+    parameters: 900000000
+    architecture: "DeBERTa v2 (large)"
+    base_model: "microsoft/deberta-v2-large"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/microsoft/deberta-v2-large"
+    source: "napolab_thesis"
+    
+  xlm-roberta-large:
+    parameters: 550000000
+    architecture: "XLM-RoBERTa (large)"
+    base_model: "xlm-roberta-large"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/xlm-roberta-large"
+    source: "napolab_thesis"
+    
+  mdeberta-v3-base:
+    parameters: 86000000
+    architecture: "mDeBERTa v3 (base)"
+    base_model: "microsoft/mdeberta-v3-base"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/microsoft/mdeberta-v3-base"
+    source: "napolab_thesis"
+    
+  bertimbau-large:
+    parameters: 355000000
+    architecture: "BERTimbau (large)"
+    base_model: "neuralmind/bert-large-portuguese-cased"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/neuralmind/bert-large-portuguese-cased"
+    source: "napolab_thesis"
+    
+  bert-large:
+    parameters: 355000000
+    architecture: "BERT (large)"
+    base_model: "bert-large-uncased"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/bert-large-uncased"
+    source: "napolab_thesis"
+    
+  bertimbau-base:
+    parameters: 110000000
+    architecture: "BERTimbau (base)"
+    base_model: "neuralmind/bert-base-portuguese-cased"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/neuralmind/bert-base-portuguese-cased"
+    source: "napolab_thesis"
+    
+  bert-multilingual-base:
+    parameters: 110000000
+    architecture: "BERT multilingual (base)"
+    base_model: "bert-base-multilingual-cased"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/bert-base-multilingual-cased"
+    source: "napolab_thesis"
+    
+  xlm-roberta-base:
+    parameters: 270000000
+    architecture: "XLM-RoBERTa (base)"
+    base_model: "xlm-roberta-base"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/xlm-roberta-base"
+    source: "napolab_thesis"
+    
+  bertinho:
+    parameters: 110000000
+    architecture: "Bertinho"
+    base_model: "ricardo-filho/bertinho-portuguese-cased-nli-assin-2"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/ricardo-filho/bertinho-portuguese-cased-nli-assin-2"
+    source: "napolab_thesis"
+    
+  ixaes:
+    parameters: 110000000
+    architecture: "IXAes"
+    base_model: "ixa-ehu/ixambert-base-cased"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/ixa-ehu/ixambert-base-cased"
+    source: "napolab_thesis"
+    
+  ttl-460m:
+    parameters: 460000000
+    architecture: "TeenyTinyLlama (460M)"
+    base_model: "nicholasKluge/TeenyTinyLlama-460m"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/nicholasKluge/TeenyTinyLlama-460m"
+    source: "teenytinyllama_paper"
+    
+  ttl-160m:
+    parameters: 160000000
+    architecture: "TeenyTinyLlama (160M)"
+    base_model: "nicholasKluge/TeenyTinyLlama-160m"
+    task: "Multiple"
+    huggingface_url: "https://huggingface.co/nicholasKluge/TeenyTinyLlama-160m"
+    source: "teenytinyllama_paper"
+
+# Additional Models (for Model Hub tab)
+additional_models:
+  albertina_models:
+    albertina-pt-pt:
+      huggingface_url: "https://huggingface.co/PORTULAN/albertina-ptpt"
+    albertina-pt-br:
+      huggingface_url: "https://huggingface.co/PORTULAN/albertina-ptbr"
+      
+  deberta_models:
+    deberta-v2-large:
+      huggingface_url: "https://huggingface.co/microsoft/deberta-v2-large"
+    mdeberta-v3-base:
+      huggingface_url: "https://huggingface.co/microsoft/mdeberta-v3-base"
+      
+  roberta_models:
+    xlm-roberta-large:
+      huggingface_url: "https://huggingface.co/xlm-roberta-large"
+    xlm-roberta-base:
+      huggingface_url: "https://huggingface.co/xlm-roberta-base"
+      
+  bert_models:
+    bertimbau-large:
+      huggingface_url: "https://huggingface.co/neuralmind/bert-large-portuguese-cased"
+    bertimbau-base:
+      huggingface_url: "https://huggingface.co/neuralmind/bert-base-portuguese-cased"
+    bert-large:
+      huggingface_url: "https://huggingface.co/bert-large-uncased"
+    bert-multilingual-base:
+      huggingface_url: "https://huggingface.co/bert-base-multilingual-cased"
+      
+  specialized_models:
+    bertinho:
+      huggingface_url: "https://huggingface.co/ricardo-filho/bertinho-portuguese-cased-nli-assin-2"
+    ixaes:
+      huggingface_url: "https://huggingface.co/ixa-ehu/ixambert-base-cased"
+      
+  teenytinyllama_models:
+    ttl-460m:
+      huggingface_url: "https://huggingface.co/nicholasKluge/TeenyTinyLlama-460m"
+    ttl-160m:
+      huggingface_url: "https://huggingface.co/nicholasKluge/TeenyTinyLlama-160m" 

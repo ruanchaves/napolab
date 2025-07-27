@@ -192,7 +192,6 @@ class DatasetLoader:
             DatasetDict: Cleaned dataset.
         """
         for split in ["train", "validation", "test"]:
-            print(type(dataset[split]))
             drop_list = [column for column in list(dataset[split].features.keys())
                           if column not in self.SELECTED_COLUMNS[dataset_name]]
             dataset[split] = dataset[split].remove_columns(drop_list)
@@ -230,6 +229,12 @@ class DatasetLoader:
         self.validate_parameters(dataset_name, language, variant)
 
         name = self.get_dataset_name(dataset_name, language)
+        log = f"""
+            Name: {name}
+            Dataset_name: {dataset_name}
+            Language: {language}
+        """
+        print(log)
         dataset = datasets.load_dataset(name, *hf_args, **hf_kwargs)
         dataset = self.apply_variant_filter(dataset, name, variant)
 
@@ -257,7 +262,9 @@ def load_napolab_benchmark(include_translations=True):
     datasets = {}
     # This will load all datasets that make up the Napolab benchmark in the Portuguese language.
     for dataset_name in loader.DATASET_NAMES:
-        if dataset_name in ["assin", "assin2"]:
+        if dataset_name in ["assin"]:
+            continue
+        elif dataset_name in ["assin2"]:
             datasets[f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte",
             hf_kwargs={"trust_remote_code": True})
             datasets[f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts",
@@ -282,15 +289,16 @@ def load_napolab_benchmark(include_translations=True):
                 translated_datasets[language] = {}
             for dataset_name in loader.DATASET_NAMES:
                 if dataset_name in ["assin", "assin2"]:
+                    if dataset_name == "assin2":
                     # Load the full splits
-                    translated_datasets[language][f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte", language=language)
-                    translated_datasets[language][f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts", language=language)
+                        translated_datasets[language][f"{dataset_name}-rte"] = loader.load(dataset_name, task="rte", language=language)
+                        translated_datasets[language][f"{dataset_name}-sts"] = loader.load(dataset_name, task="sts", language=language)
                     if dataset_name == "assin":
                         # Alternatively, for the ASSIN dataset, load just one variant
-                        translated_datasets[language]["assin-rte-ptbr"] = loader.load("assin", task="rte", variant="br")
-                        translated_datasets[language]["assin-rte-ptpt"] = loader.load("assin", task="rte", variant="pt")
-                        translated_datasets[language]["assin-sts-ptbr"] = loader.load("assin", task="sts", variant="br")
-                        translated_datasets[language]["assin-sts-ptpt"] = loader.load("assin", task="sts", variant="pt")            
+                        translated_datasets[language]["assin-rte-ptbr"] = loader.load("assin", task="rte", variant="br", language=language)
+                        translated_datasets[language]["assin-rte-ptpt"] = loader.load("assin", task="rte", variant="pt", language=language)
+                        translated_datasets[language]["assin-sts-ptbr"] = loader.load("assin", task="sts", variant="br", language=language)
+                        translated_datasets[language]["assin-sts-ptpt"] = loader.load("assin", task="sts", variant="pt", language=language)            
                 else:
                     translated_datasets[language][dataset_name] = loader.load(dataset_name, language=language)
     
