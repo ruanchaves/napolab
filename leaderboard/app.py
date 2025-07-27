@@ -575,18 +575,36 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
     # Create radar chart
     fig = go.Figure()
     
-    # Generate a dynamic color palette based on the number of models
+    # Generate a more distinguishable color palette
     num_models = len(model_performances)
-    if num_models <= 10:
-        # Use a qualitative color palette for small numbers
-        colors = px.colors.qualitative.Set3 + px.colors.qualitative.Pastel1 + px.colors.qualitative.Dark2
-    else:
-        # Use a continuous color palette for larger numbers
-        colors = px.colors.sequential.Viridis + px.colors.sequential.Plasma + px.colors.sequential.Inferno
+    
+    # Create a list of line styles for better differentiation
+    line_styles = ['solid', 'dash', 'dot', 'dashdot', 'longdash', 'longdashdot']
+    
+    # Use highly contrasting colors for better differentiation
+    base_colors = [
+        '#1f77b4',  # Blue
+        '#ff7f0e',  # Orange
+        '#2ca02c',  # Green
+        '#d62728',  # Red
+        '#9467bd',  # Purple
+        '#8c564b',  # Brown
+        '#e377c2',  # Pink
+        '#7f7f7f',  # Gray
+        '#bcbd22',  # Olive
+        '#17becf',  # Cyan
+        '#ff9896',  # Light Red
+        '#98df8a',  # Light Green
+        '#ffbb78',  # Light Orange
+        '#aec7e8',  # Light Blue
+        '#c5b0d5',  # Light Purple
+    ]
     
     # Ensure we have enough colors
-    while len(colors) < num_models:
-        colors.extend(colors)
+    while len(base_colors) < num_models:
+        base_colors.extend(base_colors)
+    
+    colors = base_colors[:num_models]
     
     for i, (model_name, data, avg_performance) in enumerate(model_performances):
         # Get performance values for all datasets (fill with 0 if missing)
@@ -594,8 +612,9 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
         for dataset_name in dataset_names:
             performance_values.append(data['performances'].get(dataset_name, 0))
         
-        # Assign color based on model index for better differentiation
+        # Assign color and line style based on model index for better differentiation
         color = colors[i % len(colors)]
+        line_style = line_styles[i % len(line_styles)]
         
         # Show first two models by default, hide the rest
         visible = True if i < 2 else 'legendonly'
@@ -606,7 +625,8 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
             fill='toself',
             name=model_name,
             line_color=color,
-            opacity=0.6,
+            line_dash=line_style,
+            opacity=0.4,
             visible=visible,
             hovertemplate=(
                 "<b>%{fullData.name}</b><br>" +
@@ -619,33 +639,46 @@ def create_model_performance_radar(selected_datasets: List[str] = None, show_nap
     
     # Update layout
     fig.update_layout(
-        title="Model Performance Radar Chart - All Datasets",
+        title="Model Performance Radar Chart",
         polar=dict(
             radialaxis=dict(
                 visible=True,
                 range=[0.6, 1],
                 ticktext=['0.6', '0.7', '0.8', '0.9', '1.0'],
-                tickvals=[0.6, 0.7, 0.8, 0.9, 1.0]
+                tickvals=[0.6, 0.7, 0.8, 0.9, 1.0],
+                gridcolor='rgba(0, 0, 0, 0.2)',
+                linecolor='rgba(0, 0, 0, 0.5)',
+                tickcolor='rgba(0, 0, 0, 0.7)',
+                tickfont=dict(color='rgba(0, 0, 0, 0.8)')
             ),
             angularaxis=dict(
                 tickmode='array',
                 tickvals=list(range(len(dataset_display_names))),
-                ticktext=dataset_display_names
-            )
+                ticktext=dataset_display_names,
+                gridcolor='rgba(0, 0, 0, 0.2)',
+                linecolor='rgba(0, 0, 0, 0.5)',
+                tickcolor='rgba(0, 0, 0, 0.7)',
+                tickfont=dict(color='rgba(0, 0, 0, 0.8)')
+            ),
+            bgcolor='rgba(255, 255, 255, 0)'
         ),
         height=700,
         showlegend=True,
+        plot_bgcolor='rgba(255, 255, 255, 0)',
+        paper_bgcolor='rgba(255, 255, 255, 0)',
         legend=dict(
             yanchor="top",
             y=-0.15,
             xanchor="center",
             x=0.5,
-            bgcolor='rgba(255, 255, 255, 0.9)',
+            bgcolor='rgba(255, 255, 255, 0.95)',
             bordercolor='rgba(0, 0, 0, 0.2)',
             borderwidth=1,
-            orientation="h"
+            orientation="h",
+            font=dict(color='rgba(0, 0, 0, 0.8)')
         ),
-        margin=dict(l=50, r=50, t=100, b=100)
+        margin=dict(l=50, r=50, t=100, b=100),
+        font=dict(color='rgba(0, 0, 0, 0.8)')
     )
     
     return fig
@@ -795,16 +828,8 @@ with gr.Blocks(title="Napolab Leaderboard", theme=gr.themes.Soft()) as app:
                 label="Search models by name (supports regex)",
                 placeholder="Enter model name or regex pattern to filter...",
                 value="",
-                info="Supports regular expressions. Examples: 'bert.*large', 'mdeberta.*', '^bert'"
+                info="Supports regular expressions. Examples: 'bert.*large', 'gemini|gpt', 'mdeberta.*', '^bert'"
             )
-            
-            gr.Markdown("""
-            **🔍 Search Tips:**
-            - **Simple search**: Type part of a model name (e.g., "bert", "mdeberta")
-            - **Regex patterns**: Use `.*` for wildcards, `^` for start of name, `$` for end
-            - **Multiple models**: Use `(gemini|bert)` to find both Gemini and BERT models
-            - **Examples**: `bert.*large`, `mdeberta.*`, `^bert`, `.*base$`, `(gemini|bert|mdeberta)`
-            """)
             
             model_analysis_chart = gr.Plot(label="Model Performance Radar Chart")
             
