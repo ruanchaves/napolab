@@ -2,6 +2,8 @@
 
 The [**Napolab**](https://huggingface.co/datasets/ruanchaves/napolab) is your go-to collection of Portuguese datasets for the evaluation of Large Language Models.
 
+**Medium Article**: ["The Hidden Truth About LLM Performance: Why Your Benchmark Results Might Be Misleading"](https://medium.com/@ruanchaves/the-hidden-truth-about-llm-performance-why-your-benchmark-results-might-be-misleading-afd24f40a46c)
+
 ## Napolab Leaderboard
 
 Browse the **[Napolab Leaderboard](https://huggingface.co/spaces/ruanchaves/napolab)** and stay up to date with the latest advancements in Portuguese language models.
