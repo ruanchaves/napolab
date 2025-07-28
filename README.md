@@ -24,17 +24,7 @@ The dataset in this format can be accessed at [https://huggingface.co/datasets/r
 
 ## 🤖 Models
 
-Nicholas Kluge, et al. have fine-tuned TeenyTinyLlama models on the FaQUAD-NLI and HateBR datasets from Napolab:
-
-- [nicholasKluge/TeenyTinyLlama-160m-FaQuAD-NLI](https://huggingface.co/nicholasKluge/TeenyTinyLlama-160m-FaQuAD-NLI)
-
-- [nicholasKluge/TeenyTinyLlama-460m-FaQuAD-NLI](https://huggingface.co/nicholasKluge/TeenyTinyLlama-460m-FaQuAD-NLI)
-
-- [nicholasKluge/TeenyTinyLlama-160m-HateBR](https://huggingface.co/nicholasKluge/TeenyTinyLlama-160m-HateBR)
-
-- [nicholasKluge/TeenyTinyLlama-460m-HateBR](https://huggingface.co/nicholasKluge/TeenyTinyLlama-460m-HateBR)
-
-For more information, please refer to the article ["TeenyTinyLlama: open-source tiny language models trained in Brazilian Portuguese"](https://arxiv.org/abs/2401.16640).
+Nicholas Kluge, et al. have fine-tuned TeenyTinyLlama models on the FaQUAD-NLI and HateBR datasets from Napolab. For more information, please refer to the article ["TeenyTinyLlama: open-source tiny language models trained in Brazilian Portuguese"](https://arxiv.org/abs/2401.16640).
 
 We've made several models, fine-tuned on this benchmark, available on Hugging Face Hub:
 
